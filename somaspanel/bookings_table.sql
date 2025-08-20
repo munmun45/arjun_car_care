@@ -1,0 +1,62 @@
+CREATE TABLE IF NOT EXISTS `bookings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_id` int(11) NOT NULL,
+  `service_name` varchar(255) NOT NULL,
+  `vehicle_brand` varchar(100) NOT NULL,
+  `vehicle_model` varchar(100) NOT NULL,
+  `owner_name` varchar(100) NOT NULL,
+  `mobile_no` varchar(20) NOT NULL,
+  `email_id` varchar(100) NOT NULL,
+  `booking_date` date NOT NULL,
+  `booking_time` time NOT NULL,
+  `additional_notes` text,
+  `status` enum('pending','confirmed','completed','cancelled') DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `service_id` (`service_id`),
+  KEY `booking_date` (`booking_date`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Insert some sample vehicle brands for the dropdown
+CREATE TABLE IF NOT EXISTS `vehicle_brands` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand_name` varchar(100) NOT NULL,
+  `is_active` tinyint(1) DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `vehicle_brands` (`brand_name`) VALUES
+('Maruti Suzuki'),
+('Hyundai'),
+('Tata'),
+('Mahindra'),
+('Honda'),
+('Toyota'),
+('Ford'),
+('Renault'),
+('Nissan'),
+('Volkswagen'),
+('Skoda'),
+('Chevrolet'),
+('BMW'),
+('Mercedes-Benz'),
+('Audi'),
+('Jaguar'),
+('Land Rover'),
+('Volvo'),
+('Jeep'),
+('Kia'),
+('MG Motor'),
+('Isuzu'),
+('Force Motors'),
+('Bajaj'),
+('TVS'),
+('Hero'),
+('Royal Enfield'),
+('KTM'),
+('Yamaha'),
+('Suzuki'),
+('Kawasaki'),
+('Harley-Davidson');
