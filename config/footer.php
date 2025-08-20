@@ -1,102 +1,64 @@
 <!-- Footer -->
 <footer class="site-footer">
-        <!-- newsletter part -->
-        
         <!-- footer top part -->
         <div class="footer-top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6 footer-col-4">
+                    <div class="col-lg-4 col-md-6 col-sm-6 footer-col-4">
                         <div class="widget widget_about">
-                            <div class="logo-footer logo-white"><img src="images/logo.png" alt=""></div>
-                            <p><strong>Auto Care</strong> ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore agna aliquam erat . wisi enim ad minim veniam, quis tation. sit amet, consec tetuer.ipsum dolor sit amet, consectetuer.</p>
+                            <div class="logo-footer logo-white">
+                                <img src="images/logo.png" alt="Arjun Car Care">
+                            </div>
+                            <p><strong>Arjun Car Care</strong> is your trusted car service center in Tamando, Bhubaneswar. We provide comprehensive car care services including repairs, maintenance, washing, and detailing to keep your vehicle in top condition.</p>
                             <ul class="dlab-social-icon dez-border">
-                                <li><a class="fab fa-facebook-f" href="https://www.facebook.com/" target="blank"></a></li>
-                                <li><a class="fab fa-twitter" href="https://twitter.com/" target="blank"></a></li>
-                                <li><a class="fab fa-linkedin-in" href="https://www.linkedin.com/" target="blank"></a></li>
-                                <li><a class="fab fa-facebook-f" href="https://www.facebook.com/" target="blank"></a></li>
+                                <li><a class="fab fa-facebook-f" href="https://www.facebook.com/arjuncarcare" target="_blank"></a></li>
+                                <li><a class="fab fa-instagram" href="https://www.instagram.com/arjuncarcare" target="_blank"></a></li>
+                                <li><a class="fab fa-whatsapp" href="https://wa.me/919876543210" target="_blank"></a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 footer-col-4">
-                        <div class="widget recent-posts-entry">
-                            <h4 class="m-b15 text-uppercase">Recent Post</h4>
+                    <div class="col-lg-4 col-md-6 col-sm-6 footer-col-4">
+                        <div class="widget">
+                            <h4 class="m-b15 text-uppercase">Contact Info</h4>
                             <div class="dlab-separator-outer m-b10">
                                 <div class="dlab-separator bg-white style-skew"></div>
                             </div>
-                            <div class="widget-post-bx">
-                                <div class="widget-post clearfix">
-                                    <div class="dlab-post-media"> <img src="images/blog/recent-blog/pic1.jpg" alt="" width="200" height="143"> </div>
-                                    <div class="dlab-post-info">
-                                        <div class="dlab-post-header">
-                                            <h6 class="post-title text-uppercase"><a href="javascript:void(0);">How Will Autocare</a></h6>
-                                        </div>
-                                        <div class="dlab-post-meta">
-                                            <ul>
-                                                <li class="post-author">By <a href="#">Admin</a></li>
-                                                <li class="post-comment"><i class="fas fa-comments"></i> 28</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="widget-post clearfix">
-                                    <div class="dlab-post-media"> <img src="images/blog/recent-blog/pic2.jpg" alt="" width="200" height="160"> </div>
-                                    <div class="dlab-post-info">
-                                        <div class="dlab-post-header">
-                                            <h6 class="post-title text-uppercase"><a href="javascript:void(0);">Seven fact about</a></h6>
-                                        </div>
-                                        <div class="dlab-post-meta">
-                                            <ul>
-                                                <li class="post-author">By <a href="#">Admin</a></li>
-                                                <li class="post-comment"><i class="fas fa-comments"></i> 28</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="widget-post clearfix">
-                                    <div class="dlab-post-media"> <img src="images/blog/recent-blog/pic3.jpg" alt="" width="200" height="160"> </div>
-                                    <div class="dlab-post-info">
-                                        <div class="dlab-post-header">
-                                            <h6 class="post-title  text-uppercase"><a href="javascript:void(0);">10 Things You</a></h6>
-                                        </div>
-                                        <div class="dlab-post-meta">
-                                            <ul>
-                                                <li class="post-author">By <a href="#">Admin</a></li>
-                                                <li class="post-comment"><i class="fas fa-comments"></i> 28</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <ul class="widget_getintuch">
+                                <li>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <strong>address</strong>
+                                    Tamando, Bhubaneswar<br>
+                                    Odisha 751002, India
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone-alt"></i>
+                                    <strong>phone</strong>
+                                    +91 98765 43210<br>
+                                    +91 98765 43211
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <strong>email</strong>
+                                    info@arjuncarcare.com<br>
+                                    support@arjuncarcare.com
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 footer-col-4">
+                    <div class="col-lg-4 col-md-6 col-sm-6 footer-col-4">
                         <div class="widget widget_services">
-                            <h4 class="m-b15 text-uppercase">Our services</h4>
+                            <h4 class="m-b15 text-uppercase">Our Services</h4>
                             <div class="dlab-separator-outer m-b10">
                                 <div class="dlab-separator bg-white style-skew"></div>
                             </div>
                             <ul>
-                                <li><a href="engine-diagnostics.html">Engine Diagnostics</a></li>
-                                <li><a href="lube-oil-and-filters.html">Lube, Oil and Filters</a></li>
-                                <li><a href="belts-and-hoses.html">Belts and Hoses</a></li>
-                                <li><a href="air-conditioning.html">Air Conditioning</a></li>
-                                <li><a href="brake-repair.html">Brake Repair</a></li>
-                                <li><a href="tire-and-wheel-services.html">Tire And Wheel</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 footer-col-4">
-                        <div class="widget widget_getintuch">
-                            <h4 class="m-b15 text-uppercase">Contact us</h4>
-                            <div class="dlab-separator-outer m-b10">
-                                <div class="dlab-separator bg-white style-skew"></div>
-                            </div>
-                            <ul>
-                                <li><i class="ti-location-pin"></i><strong>address</strong> demo address #8901 Marmora Road Chi Minh City, Vietnam </li>
-                                <li><i class="ti-mobile"></i><strong>phone</strong>0800-123456 (24/7 Support Line)</li>
-                                <li><i class="ti-printer"></i><strong>FAX</strong>(123) 123-4567</li>
-                                <li><i class="ti-email"></i><strong>email</strong>info@demo.com</li>
+                                <li><a href="services.php#car-service">Car Servicing</a></li>
+                                <li><a href="services.php#car-repair">Car Repairs</a></li>
+                                <li><a href="services.php#car-wash">Car Wash & Detailing</a></li>
+                                <li><a href="services.php#ac-service">AC Service & Repair</a></li>
+                                <li><a href="services.php#battery">Battery Replacement</a></li>
+                                <li><a href="services.php#tyre-service">Tyre Services</a></li>
+                                <li><a href="services.php#denting-painting">Denting & Painting</a></li>
                             </ul>
                         </div>
                     </div>
@@ -107,22 +69,17 @@
         <div class="footer-bottom footer-line">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 text-left">
-						<span>© Copyright <span class="current-year"> 2024</span></span>
-					</div>
-					<div class="col-lg-4 col-md-4 text-center"> 
-						<span> Design With <i class="ti-heart text-primary heart"></i> By<a href="https://www.dexignlab.com/" target="_blank">DexignLab</a> </span> 
-					</div>
-					<div class="col-lg-4 col-md-4 text-right"> 
-						<a href="about-1.html"> About Us</a>
-						<a href="faq-1.html"> FAQs</a>
-						<a href="contact.html"> Contact Us</a>
-					</div>
+                    <div class="col-lg-6 col-md-6 text-left">
+                        <span> 2025 Arjun Car Care. All rights reserved.</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 text-end">
+                        <span>Designed with <i class="fas fa-heart text-danger"></i> by Arjun Car Care Team</span>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- Footer END-->
+    <!-- Footer END -->
 
 
 <!-- JavaScript  files ========================================= -->
