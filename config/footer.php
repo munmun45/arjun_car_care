@@ -1,35 +1,7 @@
 <!-- Footer -->
 <footer class="site-footer">
         <!-- newsletter part -->
-        <div class="bg-primary dlab-newsletter">
-            <div class="container equal-wraper">
-				<form class="dzSubscribe" action="https://autocare-html.vercel.app/script/mailchamp.php" method="post">
-					<div class="row position-relative">
-                        <div class="col-lg-4 col-md-4 col-sm-12">
-                            <div class="icon-bx-wraper equal-col p-t30 p-b20 left">
-                                <div class="icon-lg text-white radius">
-									<i class="ti-email"></i>
-								</div>
-                                <div class="icon-content"> <strong class="text-black text-uppercase font-18">Subscribe</strong>
-                                    <h2 class="dlab-tilte text-uppercase">Our Newsletter</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
-                            <div class="dzSubscribeMsg"></div>
-							<div class="input-group equal-col p-t40  p-b10">
-                                 <input name="dzEmail" placeholder="Email address" required="required" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 offset-lg-1 offset-md-1">
-                            <div class="equal-col p-t40 p-b10 skew-subscribe">
-                                <button name="submit" value="Submit" type="submit" class="site-button-secondry button-skew z-index1"> <span>Subscribe</span><i class="fas fa-angle-right"></i> </button>
-                            </div>
-                        </div>
-					</div>
-				</form>
-            </div>
-        </div>
+        
         <!-- footer top part -->
         <div class="footer-top">
             <div class="container">
