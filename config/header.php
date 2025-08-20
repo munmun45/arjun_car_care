@@ -83,7 +83,7 @@ if (!isset($header_contact)) {
                     <!-- extra nav -->
                     <div class="extra-nav">
                         <div class="extra-cell">
-                            <a href="contact.php" class="site-button">Book Service</a>
+                            <a href="book.php" class="site-button">Book Service</a>
                         </div>
                     </div>
                     <!-- main nav -->
