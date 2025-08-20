@@ -6,36 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
-function sendPaymentEmail($destination, $body) {
-    $mail = new PHPMailer(true);
 
-    try {
-        //Server settings
-        $mail->isSMTP();
-        $mail->Host = 'smtp.hostinger.com';
-        $mail->Port = 587;
-        $mail->SMTPDebug = 0; // Set to 2 for debugging
-        $mail->SMTPAuth = true;
-        $mail->Username = 'no_reply@shreekshetratravels.com';
-        $mail->Password = '5Gc9ShT?';
-
-        //Recipients
-        $mail->setFrom('no_reply@shreekshetratravels.com', 'Shreekshetra Travels');
-        $mail->addAddress('maharanamunmun@gmail.com', $destination);
-
-        //Content
-        $mail->isHTML(true);
-        $mail->Subject = 'New Booking';
-        $mail->Body    = $body;
-
-        $mail->send();
-        return true;
-    } catch (Exception $e) {
-        // Log the error instead of echoing
-        error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
-        return false;
-    }
-}
 
 function sendBookingEmail($destination, $body, $customerEmail = null) {
     $mail = new PHPMailer(true);
@@ -53,17 +24,11 @@ function sendBookingEmail($destination, $body, $customerEmail = null) {
         //Recipients
         $mail->setFrom('no_reply@arjuncarcare.com', 'Arjun Car Care');
         
-        if ($customerEmail) {
-            // Send to customer
-            $mail->addAddress($customerEmail, $destination);
-        } else {
-            // Send to admin
-            $mail->addAddress('admin@arjuncarcare.com', $destination);
-        }
+        $mail->addAddress('maharanamunmun@gmail.com', $destination);
 
         //Content
         $mail->isHTML(true);
-        $mail->Subject = $customerEmail ? 'Booking Confirmation - Arjun Car Care' : 'New Service Booking - Arjun Car Care';
+        $mail->Subject = 'Booking Confirmation - Arjun Car Care';
         $mail->Body = $body;
 
         $mail->send();
@@ -89,7 +54,7 @@ function sendContactEmail($name, $email, $phone, $message) {
 
         //Recipients
         $mail->setFrom('no_reply@arjuncarcare.com', 'Arjun Car Care');
-        $mail->addAddress('admin@arjuncarcare.com', 'Arjun Car Care');
+        $mail->addAddress('maharanamunmun@gmail.com', 'Arjun Car Care');
         $mail->addReplyTo($email, $name);
 
         //Content
