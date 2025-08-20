@@ -40,6 +40,13 @@
                 <span>Gallery</span>
             </a>
         </li>
+        
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="contact.php">
+                <i class="bi bi-telephone"></i>
+                <span>Contact Details</span>
+            </a>
+        </li>
     
 
 

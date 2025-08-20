@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from autocare-html.vercel.app/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 16 Aug 2025 19:57:06 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
 	
@@ -120,7 +119,7 @@
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
 										style="z-index: 13;">
-										<a href="about-1.html" class="site-button button-skew"><span>Read More</span><i class="fas fa-angle-right"></i></a>
+										<a href="about.php" class="site-button button-skew"><span>Read More</span><i class="fas fa-angle-right"></i></a>
 									</div>
                                 </li>
                                 <!-- SLIDE 2 -->
@@ -215,7 +214,7 @@
 										data-paddingright="[0,0,0,0]"
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
-										style="z-index: 13;"><a href="about-2.html" class="site-button  button-skew"><span>Read More</span><i class="fas fa-angle-right"></i></a> 
+										style="z-index: 13;"><a href="about.php" class="site-button  button-skew"><span>Read More</span><i class="fas fa-angle-right"></i></a> 
 									</div>
 								</li>
                                 <!-- SLIDE 3 -->
@@ -310,7 +309,7 @@
 										data-paddingright="[0,0,0,0]"
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
-										style="z-index: 13;"><a href="about-1.html" class="site-button   button-skew"><span>Read More</span><i class="fas fa-angle-right"></i></a> 
+										style="z-index: 13;"><a href="about.php" class="site-button   button-skew"><span>Read More</span><i class="fas fa-angle-right"></i></a> 
 									</div>
                                 </li>
                             </ul>
@@ -338,7 +337,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 m-t20">
-								<a href="contact.html" class="site-button-secondry button-skew m-l10">
+								<a href="contact.php" class="site-button-secondry button-skew m-l10">
 								<span>Contact Us</span><i class="fas fa-angle-right"></i></a>
 							</div>
                         </div>
@@ -406,101 +405,93 @@
                     <div class="dlab-separator-outer ">
                         <div class="dlab-separator bg-white style-skew"></div>
                     </div>
-                    <p>There are many variations of passages of Lorem Ipsum typesetting industry has been the industry's standard dummy text ever since the been when an unknown printer.</p>
+                    <p>Explore our completed car care projects showcasing our expertise and quality workmanship across different service categories.</p>
                 </div>
+                
+                <?php
+                // Include database connection if not already included
+                if (!isset($conn)) {
+                    require_once('./somaspanel/config/config.php');
+                }
+                
+                // Fetch unique categories for filters
+                $category_sql = "SELECT DISTINCT category FROM gallery WHERE status = 'active' ORDER BY category";
+                $category_result = $conn->query($category_sql);
+                $categories = [];
+                if ($category_result->num_rows > 0) {
+                    while($cat_row = $category_result->fetch_assoc()) {
+                        $categories[] = $cat_row['category'];
+                    }
+                }
+                ?>
+                
                 <div class="site-filters clearfix center  m-b40">
                     <ul class="filters" data-bs-toggle="buttons">
                         <li data-filter="" class="btn active">
                             <input type="radio">
-                            <a href="#" class="site-button-secondry"><span>Show All</span></a> </li>
-                        <li data-filter="home" class="btn">
-                            <input type="radio" >
-                            <a href="#" class="site-button-secondry"><span>Brakes</span></a> </li>
-                        <li data-filter="office" class="btn">
+                            <a href="#" class="site-button-secondry"><span>Show All</span></a>
+                        </li>
+                        <?php foreach($categories as $category): ?>
+                        <li data-filter="<?php echo strtolower($category); ?>" class="btn">
                             <input type="radio">
-                            <a href="#" class="site-button-secondry"><span>Suspension</span></a> </li>
-                        <li data-filter="commercial" class="btn">
-                            <input type="radio">
-                            <a href="#" class="site-button-secondry"><span>Wheels</span></a> </li>
-                        <li data-filter="window" class="btn">
-                            <input type="radio">
-                            <a href="#" class="site-button-secondry"><span>Steering	</span></a> </li>
+                            <a href="#" class="site-button-secondry"><span><?php echo ucfirst($category); ?></span></a>
+                        </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
+                
 				<ul id="masonry" class="row dlab-gallery-listing gallery-grid-4 lightgallery gallery s m-b0">
-					<li class="home card-container col-lg-4 col-md-4 col-sm-6 col-6">
+                    <?php
+                    // Fetch gallery images from database
+                    $gallery_sql = "SELECT * FROM gallery WHERE status = 'active' ORDER BY id DESC LIMIT 6";
+                    $gallery_result = $conn->query($gallery_sql);
+                    
+                    if ($gallery_result->num_rows > 0) {
+                        while($gallery_row = $gallery_result->fetch_assoc()) {
+                            $image_path = "somaspanel/uploads/gallery/" . $gallery_row['image'];
+                            $category_class = strtolower($gallery_row['category']);
+                    ?>
+					<li class="<?php echo $category_class; ?> card-container col-lg-4 col-md-4 col-sm-6 col-6">
 						<div class="dlab-box dlab-gallery-box">
-							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> <a href="javascript:void(0);"> <img src="images/our-work/pic1.jpg"  alt=""> </a>
+							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> 
+                                <a href="javascript:void(0);"> 
+                                    <img src="<?php echo $image_path; ?>" alt="<?php echo htmlspecialchars($gallery_row['title']); ?>" style="height: 250px; object-fit: cover; width: 100%;"> 
+                                </a>
 								<div class="overlay-bx">
 									<div class="overlay-icon"> 
-										<a href="portfolio-details.html"> <i class="fas fa-link icon-bx-xs"></i> </a> 
-										<span data-exthumbimage="images/our-work/thum/pic1.jpg" data-src="images/our-work/pic1.jpg" class="far fa-image icon-bx-xs check-km" title="Light Gallery Grid 1"></span>
+										<a href="gallery.php"> <i class="fas fa-link icon-bx-xs"></i> </a> 
+										<span data-exthumbimage="<?php echo $image_path; ?>" data-src="<?php echo $image_path; ?>" class="far fa-image icon-bx-xs check-km" title="<?php echo htmlspecialchars($gallery_row['title']); ?>"></span>
 									</div>
 								</div>
+                                <div class="overlay-info">
+                                    <h6 class="text-white"><?php echo htmlspecialchars($gallery_row['title']); ?></h6>
+                                    <span class="badge bg-primary"><?php echo ucfirst($gallery_row['category']); ?></span>
+                                </div>
 							</div>
 						</div>
 					</li>
-					<li class="office card-container col-lg-4 col-md-4 col-sm-6 col-6">
-						<div class="dlab-box dlab-gallery-box">
-							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow dlab-img-effect zoom"> <a href="javascript:void(0);"> <img src="images/our-work/pic2.jpg"  alt=""> </a>
-								<div class="overlay-bx">
-									<div class="overlay-icon"> 
-										<a href="portfolio-details.html"> <i class="fas fa-link icon-bx-xs"></i> </a> 
-										<span data-exthumbimage="images/our-work/thum/pic2.jpg" data-src="images/our-work/pic2.jpg" class="far fa-image icon-bx-xs check-km" title="Light Gallery Grid 1"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="card-container col-lg-4 col-md-4 col-sm-6 col-6 commercial">
-						<div class="dlab-box dlab-gallery-box">
-							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> <a href="javascript:void(0);"> <img src="images/our-work/pic3.jpg"  alt=""> </a>
-								<div class="overlay-bx">
-									<div class="overlay-icon"> 
-										<a href="portfolio-details.html"> <i class="fas fa-link icon-bx-xs"></i> </a> 
-										<span data-exthumbimage="images/our-work/thum/pic3.jpg" data-src="images/our-work/pic3.jpg" class="far fa-image icon-bx-xs check-km" title="Light Gallery Grid 1"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="commercial card-container col-lg-4 col-md-4 col-sm-6 col-6">
-						<div class="dlab-box dlab-gallery-box">
-							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> <a href="javascript:void(0);"> <img src="images/our-work/pic4.jpg"  alt=""> </a>
-								<div class="overlay-bx">
-									<div class="overlay-icon"> 
-										<a href="portfolio-details.html"> <i class="fas fa-link icon-bx-xs"></i> </a> 
-										<span data-exthumbimage="images/our-work/thum/pic4.jpg" data-src="images/our-work/pic4.jpg" class="far fa-image icon-bx-xs check-km" title="Light Gallery Grid 1"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="window card-container col-lg-4 col-md-4 col-sm-6 col-6">
-						<div class="dlab-box dlab-gallery-box">
-							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> <a href="javascript:void(0);"> <img src="images/our-work/pic5.jpg"  alt=""> </a>
-								<div class="overlay-bx">
-									<div class="overlay-icon"> 
-										<a href="portfolio-details.html"> <i class="fas fa-link icon-bx-xs"></i> </a> 
-										<span data-exthumbimage="images/our-work/thum/pic5.jpg" data-src="images/our-work/pic5.jpg" class="far fa-image icon-bx-xs check-km" title="Light Gallery Grid 1"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="window card-container col-lg-4 col-md-4 col-sm-6 col-6">
-						<div class="dlab-box dlab-gallery-box">
-							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> <a href="javascript:void(0);"> <img src="images/our-work/pic6.jpg"  alt=""> </a>
-								<div class="overlay-bx">
-									<div class="overlay-icon"> 
-										<a href="portfolio-details.html"> <i class="fas fa-link icon-bx-xs"></i> </a> 
-										<span data-exthumbimage="images/our-work/thum/pic6.jpg" data-src="images/our-work/pic6.jpg" class="far fa-image icon-bx-xs check-km" title="Light Gallery Grid 1"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
+                    <?php
+                        }
+                    } else {
+                        // Fallback if no gallery images
+                    ?>
+                    <li class="col-12 text-center">
+                        <div class="alert alert-light text-dark">
+                            <h5>Projects Gallery Coming Soon!</h5>
+                            <p>We're preparing our project showcase. Check back soon to see our amazing work!</p>
+                            <a href="gallery.php" class="btn btn-primary">Visit Gallery</a>
+                        </div>
+                    </li>
+                    <?php } ?>
 				</ul>
+                
+                <!-- View All Projects Button -->
+                <div class="text-center mt-4">
+                    <a href="gallery.php" class="site-button button-skew">
+                        <span>View All Projects</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
         <!-- Our Projects END -->
@@ -512,63 +503,65 @@
                     <div class="dlab-separator-outer ">
                         <div class="dlab-separator bg-secondry style-skew"></div>
                     </div>
-                    <p>There are many variations of passages of Lorem Ipsum typesetting industry has been the industry's standard dummy text ever since the been when an unknown printer.</p>
+                    <p>Discover our comprehensive range of professional car care services designed to keep your vehicle running smoothly and looking its best.</p>
                 </div>
                 <div class="row">
+                    <?php
+                    // Include database connection
+                    require_once('./somaspanel/config/config.php');
+                    
+                    // Fetch active services from database
+                    $sql = "SELECT * FROM services WHERE status = 'active' ORDER BY id DESC LIMIT 6";
+                    $result = $conn->query($sql);
+                    
+                    // Icon mapping for services
+                    $service_icons = [
+                        'ti-reload', 'ti-car', 'ti-thumb-up', 'ti-cup', 
+                        'ti-settings', 'ti-pie-chart', 'ti-wrench', 'ti-spray',
+                        'ti-pulse', 'ti-dashboard', 'ti-bolt', 'ti-shine'
+                    ];
+                    
+                    if ($result->num_rows > 0) {
+                        $icon_index = 0;
+                        while($row = $result->fetch_assoc()) {
+                            $icon = $service_icons[$icon_index % count($service_icons)];
+                            $icon_index++;
+                    ?>
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="icon-bx-wraper center m-b40">
-                            <div class="icon-bx-sm bg-secondry m-b20"> <span class="icon-cell"><i class="ti-reload text-primary"></i></span> </div>
+                            <div class="icon-bx-sm bg-secondry m-b20"> 
+                                <span class="icon-cell"><i class="<?php echo $icon; ?> text-primary"></i></span> 
+                            </div>
                             <div class="icon-content">
-                                <h5 class="dlab-tilte text-uppercase">AIR CONDITIONING</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod </p>
+                                <h5 class="dlab-tilte text-uppercase"><?php echo htmlspecialchars($row['title']); ?></h5>
+                                <p><?php echo htmlspecialchars(substr($row['description'], 0, 100)) . (strlen($row['description']) > 100 ? '...' : ''); ?></p>
+                                <div class="mt-3">
+                                    <a href="services.php" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper center m-b40">
-                            <div class="icon-bx-sm bg-secondry m-b20"> <span class="icon-cell"><i class="ti-car text-primary"></i></span> </div>
-                            <div class="icon-content">
-                                <h5 class="dlab-tilte text-uppercase">BRAKE REPAIR</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod </p>
-                            </div>
+                    <?php
+                        }
+                    } else {
+                        // Fallback content if no services found
+                    ?>
+                    <div class="col-12 text-center">
+                        <div class="alert alert-info">
+                            <h5>Services Coming Soon!</h5>
+                            <p>We're preparing our comprehensive service offerings. Please check back soon or contact us for more information.</p>
+                            <a href="contact.php" class="btn btn-primary">Contact Us</a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper center m-b40">
-                            <div class="icon-bx-sm bg-secondry m-b20"> <span class="icon-cell"><i class="ti-thumb-up text-primary"></i></span> </div>
-                            <div class="icon-content">
-                                <h5 class="dlab-tilte text-uppercase">LUBE, OIL AND FILTERS</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper center m-b40">
-                            <div class="icon-bx-sm bg-secondry m-b20"> <span class="icon-cell"><i class="ti-cup text-primary"></i></span> </div>
-                            <div class="icon-content">
-                                <h5 class="dlab-tilte text-uppercase">BELTS AND HOSES</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper center m-b40">
-                            <div class="icon-bx-sm bg-secondry m-b20"> <span class="icon-cell"><i class="ti-settings text-primary"></i></span> </div>
-                            <div class="icon-content">
-                                <h5 class="dlab-tilte text-uppercase">ENGINE DIAGNOSTICS</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper center m-b10">
-                            <div class="icon-bx-sm bg-secondry m-b20"> <span class="icon-cell"><i class="ti-pie-chart text-primary"></i></span> </div>
-                            <div class="icon-content">
-                                <h5 class="dlab-tilte text-uppercase">TIRE AND WHEEL SERVICES</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod </p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
+                </div>
+                
+                <!-- View All Services Button -->
+                <div class="text-center mt-4">
+                    <a href="services.php" class="site-button button-skew">
+                        <span>View All Services</span>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -623,5 +616,4 @@
 
 </body>
 
-<!-- Mirrored from autocare-html.vercel.app/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 16 Aug 2025 19:58:35 GMT -->
 </html>

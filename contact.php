@@ -21,7 +21,7 @@
         <div class="dlab-bnr-inr overlay-black-middle" style="background-image:url(images/background/bg4.jpg);">
             <div class="container">
                 <div class="dlab-bnr-inr-entry">
-                    <h1 class="text-white">Contact Us 4</h1>
+                    <h1 class="text-white">Contact Us</h1>
                 </div>
             </div>
         </div>
@@ -30,49 +30,82 @@
         <div class="breadcrumb-row">
             <div class="container">
                 <ul class="list-inline">
-                    <li><a href="#">Home</a></li>
-                    <li>Contact us 4</li>
+                    <li><a href="index.php">Home</a></li>
+                    <li>Contact Us</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb row END -->
+        
+        <?php
+        // Include database connection
+        require_once('./somaspanel/config/config.php');
+        
+        // Create table if it doesn't exist
+        $create_table_sql = "CREATE TABLE IF NOT EXISTS `contact_info` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `mobile1` varchar(20) NOT NULL,
+          `mobile2` varchar(20) NOT NULL,
+          `email1` varchar(100) NOT NULL,
+          `email2` varchar(100) NOT NULL,
+          `address` text NOT NULL,
+          `map_embed` text,
+          `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+        $conn->query($create_table_sql);
+        
+        // Fetch contact information from database
+        $result = $conn->query("SELECT * FROM contact_info LIMIT 1");
+        $contact = null;
+        if ($result && $result->num_rows > 0) {
+            $contact = $result->fetch_assoc();
+        }
+        
+        // Default contact info if none exists in database
+        if (!$contact) {
+            $contact = [
+                'mobile1' => '+91 123 456 7890',
+                'mobile2' => '+91 987 654 3210',
+                'email1' => 'info@arjuncarcare.com',
+                'email2' => 'support@arjuncarcare.com',
+                'address' => 'Arjun Car Care Center, Main Road, Your City, State - 123456',
+                'map_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227748.3825624477!2d75.65046970649679!3d26.88544791796718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4adf4c57e281%3A0xce1c63a0cf22e09!2sJaipur%2C+Rajasthan!5e0!3m2!1sen!2sin!4v1500819483219'
+            ];
+        }
+        ?>
+        
         <!-- contact area -->
         <div class="section-full content-inner bg-white contact-style-1">
 			<div class="container">
                 <div class="row">
-					<div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+					<div class="col-lg-4 col-md-6 col-sm-6 m-b30">
 						<div class="icon-bx-wraper bx-style-1 p-a30 center">
 							<div class="icon-xl text-primary m-b20"> <a href="#" class="icon-cell"><i class="ti-location-pin"></i></a> </div>
 							<div class="icon-content">
 								<h5 class="dlab-tilte text-uppercase">Address</h5>
-								<p>123 West Street, Melbourne Victoria 3000 Australia</p>
+								<p><?php echo htmlspecialchars($contact['address']); ?></p>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+					<div class="col-lg-4 col-md-6 col-sm-6 m-b30">
 						<div class="icon-bx-wraper bx-style-1 p-a30 center">
-							<div class="icon-xl text-primary m-b20"> <a href="#" class="icon-cell"><i class="ti-email"></i></a> </div>
+							<div class="icon-xl text-primary m-b20"> <a href="mailto:<?php echo htmlspecialchars($contact['email1']); ?>" class="icon-cell"><i class="ti-email"></i></a> </div>
 							<div class="icon-content">
 								<h5 class="dlab-tilte text-uppercase">Email</h5>
-								<p>info@company.com <br/> info@industrycompany.com</p>
+								<p><a href="mailto:<?php echo htmlspecialchars($contact['email1']); ?>"><?php echo htmlspecialchars($contact['email1']); ?></a> <br/> 
+								<a href="mailto:<?php echo htmlspecialchars($contact['email2']); ?>"><?php echo htmlspecialchars($contact['email2']); ?></a></p>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+					<div class="col-lg-4 col-md-6 col-sm-6 m-b30">
 						<div class="icon-bx-wraper bx-style-1 p-a30 center">
-							<div class="icon-xl text-primary m-b20"> <a href="#" class="icon-cell"><i class="ti-mobile"></i></a> </div>
+							<div class="icon-xl text-primary m-b20"> <a href="tel:<?php echo htmlspecialchars($contact['mobile1']); ?>" class="icon-cell"><i class="ti-mobile"></i></a> </div>
 							<div class="icon-content">
 								<h5 class="dlab-tilte text-uppercase">Phone</h5>
-								<p>+91 123 456 7890 <br/> +23 123 456 7890</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6 m-b30">
-						<div class="icon-bx-wraper bx-style-1 p-a30 center">
-							<div class="icon-xl text-primary m-b20"> <a href="#" class="icon-cell"><i class="ti-printer"></i></a> </div>
-							<div class="icon-content">
-								<h5 class="dlab-tilte text-uppercase">Content title</h5>
-								<p>+91 123 456 7890 <br/> +23 123 456 7890</p>
+								<p><a href="tel:<?php echo htmlspecialchars($contact['mobile1']); ?>"><?php echo htmlspecialchars($contact['mobile1']); ?></a> <br/> 
+								<a href="tel:<?php echo htmlspecialchars($contact['mobile2']); ?>"><?php echo htmlspecialchars($contact['mobile2']); ?></a></p>
 							</div>
 						</div>
 					</div>
@@ -139,7 +172,17 @@
                     <!-- Left part END -->
 					<!-- right part start -->
                     <div class="col-lg-6 m-b30">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227748.3825624477!2d75.65046970649679!3d26.88544791796718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4adf4c57e281%3A0xce1c63a0cf22e09!2sJaipur%2C+Rajasthan!5e0!3m2!1sen!2sin!4v1500819483219" class="align-self-stretch" style="border:0; width:100%; min-height:100%;"  allowfullscreen></iframe>
+                        <?php if (!empty($contact['map_embed'])): ?>
+                            <iframe src="<?php echo htmlspecialchars($contact['map_embed']); ?>" class="align-self-stretch" style="border:0; width:100%; min-height:100%;" allowfullscreen></iframe>
+                        <?php else: ?>
+                            <div class="p-a30 bg-gray text-center" style="min-height:400px; display:flex; align-items:center; justify-content:center;">
+                                <div>
+                                    <i class="ti-location-pin" style="font-size:48px; color:#ccc; margin-bottom:20px;"></i>
+                                    <h4>Map Location</h4>
+                                    <p>Map will be displayed here once location is set in admin panel.</p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <!-- right part END -->
                 </div>

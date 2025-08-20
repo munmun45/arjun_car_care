@@ -1,4 +1,46 @@
 <!-- header -->
+<?php
+// Include database connection for header
+if (!isset($conn)) {
+    require_once('./somaspanel/config/config.php');
+}
+
+// Initialize header_contact variable
+if (!isset($header_contact)) {
+    // Create table if it doesn't exist
+    $create_table_sql = "CREATE TABLE IF NOT EXISTS `contact_info` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `mobile1` varchar(20) NOT NULL,
+      `mobile2` varchar(20) NOT NULL,
+      `email1` varchar(100) NOT NULL,
+      `email2` varchar(100) NOT NULL,
+      `address` text NOT NULL,
+      `map_embed` text,
+      `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+    $conn->query($create_table_sql);
+    
+    // Fetch contact information from database
+    $result = $conn->query("SELECT * FROM contact_info LIMIT 1");
+    $header_contact = null;
+    if ($result && $result->num_rows > 0) {
+        $header_contact = $result->fetch_assoc();
+    }
+    
+    // Default contact info if none exists in database
+    if (!$header_contact) {
+        $header_contact = [
+            'mobile1' => '+91 98765 43210',
+            'mobile2' => '+91 98765 43211',
+            'email1' => 'info@arjuncarcare.com',
+            'email2' => 'support@arjuncarcare.com',
+            'address' => 'Tamando, Bhubaneswar, Odisha 751002, India'
+        ];
+    }
+}
+?>
 <header class="site-header header mo-left header-style-1">
         <!-- top bar -->
         <div class="top-bar">
@@ -6,16 +48,16 @@
                 <div class="row d-flex justify-content-between">
                     <div class="dlab-topbar-left">
                         <ul class="list-inline">
-                            <li><a href="tel:+919876543210"><i class="fas fa-phone-alt"></i> +91 98765 43210</a></li>
-                            <li><a href="mailto:info@arjuncarcare.com"><i class="fas fa-envelope"></i> info@arjuncarcare.com</a></li>
-                            <li><i class="fas fa-map-marker-alt"></i> Tamando, Bhubaneswar, Odisha 751002</li>
+                            <li><a href="tel:<?php echo htmlspecialchars($header_contact['mobile1']); ?>"><i class="fas fa-phone-alt"></i> <?php echo htmlspecialchars($header_contact['mobile1']); ?></a></li>
+                            <li><a href="mailto:<?php echo htmlspecialchars($header_contact['email1']); ?>"><i class="fas fa-envelope"></i> <?php echo htmlspecialchars($header_contact['email1']); ?></a></li>
+                            <li><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($header_contact['address']); ?></li>
                         </ul>
                     </div>
                     <div class="dlab-topbar-right">
                         <ul class="social-bx list-inline float-end">
                             <li><a class="fab fa-facebook-f" href="https://www.facebook.com/arjuncarcare" target="_blank"></a></li>
                             <li><a class="fab fa-instagram" href="https://www.instagram.com/arjuncarcare" target="_blank"></a></li>
-                            <li><a class="fab fa-whatsapp" href="https://wa.me/919876543210" target="_blank"></a></li>
+                            <li><a class="fab fa-whatsapp" href="https://wa.me/<?php echo str_replace(['+', ' ', '-'], '', $header_contact['mobile1']); ?>" target="_blank"></a></li>
                         </ul>
                     </div>
                 </div>

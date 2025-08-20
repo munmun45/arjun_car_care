@@ -42,308 +42,82 @@
             <!-- Product -->
             <div class="container">
                 <div class="row">
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item1.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Checked Short Dress</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10 item-style-1">
-							<div class="item-img">
-								<img src="images/product/item2.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Slim Fit Chinos</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item3.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Dark Brown Boots</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item4.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Light Blue Denim Dress</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item5.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Green Trousers</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10 item-style-1">
-							<div class="item-img">
-								<img src="images/product/item6.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Unisex Sunglasses</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item7.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Blue Round-Neck Tshirt</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item8.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Men Grey Casual Shoes</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item1.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Checked Short Dress</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10 item-style-1">
-							<div class="item-img">
-								<img src="images/product/item2.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Slim Fit Chinos</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item3.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Dark Brown Boots</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="item-box m-b10">
-							<div class="item-img">
-								<img src="images/product/item4.jpg" alt="">
-								<div class="item-info-in">
-									<ul>
-										<li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-										<li><a href="#"><i class="ti-eye"></i></a></li>
-										<li><a href="#"><i class="ti-heart"></i></a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="item-info text-center text-black p-a10">
-								<h6 class="item-title"><a href="#">Light Blue Denim Dress</a></h6>
-								<ul class="item-review">
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star"></i></li>
-									<li><i class="fas fa-star-half-alt"></i></li>
-									<li><i class="far fa-star"></i></li>
-								</ul>
-								<h4 class="item-price"><del>$232</del> <span class="text-primary">$192</span></h4>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                    <?php
+                    require_once 'somaspanel/config/config.php';
+                    
+                    // Fetch active products from database
+                    $query = "SELECT * FROM products WHERE status = 'active' ORDER BY created_at DESC";
+                    $result = $conn->query($query);
+                    
+                    if ($result && $result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo '<div class="col-lg-3 col-md-4 col-sm-6">';
+                            echo '<div class="item-box m-b10">';
+                            echo '<div class="item-img">';
+                            if ($row['image']) {
+                                echo '<img src="somaspanel/uploads/products/' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['title']) . '" style="width: 100%; height: 250px; object-fit: cover;">';
+                            } else {
+                                echo '<img src="images/product/item1.jpg" alt="' . htmlspecialchars($row['title']) . '" style="width: 100%; height: 250px; object-fit: cover;">';
+                            }
+                            echo '<div class="item-info-in">';
+                            echo '<ul>';
+                            echo '<li><a href="#" data-bs-toggle="modal" data-bs-target="#productModal' . $row['id'] . '"><i class="ti-eye"></i></a></li>';
+                            echo '<li><a href="contact.php"><i class="ti-shopping-cart"></i></a></li>';
+                            echo '<li><a href="#"><i class="ti-heart"></i></a></li>';
+                            echo '</ul>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '<div class="item-info text-center text-black p-a10">';
+                            echo '<h6 class="item-title"><a href="#">' . htmlspecialchars($row['title']) . '</a></h6>';
+                            
+                            // Display star rating
+                            echo '<ul class="item-review">';
+                            $rating = floatval($row['star_rating']);
+                            for ($i = 1; $i <= 5; $i++) {
+                                if ($i <= $rating) {
+                                    echo '<li><i class="fas fa-star"></i></li>';
+                                } elseif ($i - 0.5 <= $rating) {
+                                    echo '<li><i class="fas fa-star-half-alt"></i></li>';
+                                } else {
+                                    echo '<li><i class="far fa-star"></i></li>';
+                                }
+                            }
+                            echo '</ul>';
+                            
+                            // Display pricing
+                            echo '<h4 class="item-price">';
+                            if ($row['off_price'] && $row['off_price'] > 0) {
+                                echo '<del>₹' . number_format($row['off_price'], 2) . '</del> ';
+                            }
+                            echo '<span class="text-primary">₹' . number_format($row['main_price'], 2) . '</span>';
+                            echo '</h4>';
+                            
+                            // Display quantity if available
+                            if ($row['quantity'] > 0) {
+                                echo '<small class="text-success">In Stock (' . $row['quantity'] . ' available)</small>';
+                                echo '<div class="mt-2">';
+                                echo '<a href="contact.php" class="btn btn-primary btn-sm">Buy Now</a>';
+                                echo '</div>';
+                            } else {
+                                echo '<small class="text-danger">Out of Stock</small>';
+                                echo '<div class="mt-2">';
+                                echo '<button class="btn btn-secondary btn-sm" disabled>Out of Stock</button>';
+                                echo '</div>';
+                            }
+                            
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<div class="col-12 text-center">';
+                        echo '<h3>No Products Available</h3>';
+                        echo '<p>We are currently updating our product catalog. Please check back soon!</p>';
+                        echo '</div>';
+                    }
+                    ?>
+                </div>
+            </div>
             <!-- Product END -->
 		</div>
 		<div class="section-full p-t50 p-b20 bg-gray">

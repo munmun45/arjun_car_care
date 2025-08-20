@@ -1,4 +1,46 @@
 <!-- Footer -->
+<?php
+// Include database connection for footer
+if (!isset($conn)) {
+    require_once('./somaspanel/config/config.php');
+}
+
+// Initialize footer_contact variable
+if (!isset($footer_contact)) {
+    // Create table if it doesn't exist
+    $create_table_sql = "CREATE TABLE IF NOT EXISTS `contact_info` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `mobile1` varchar(20) NOT NULL,
+      `mobile2` varchar(20) NOT NULL,
+      `email1` varchar(100) NOT NULL,
+      `email2` varchar(100) NOT NULL,
+      `address` text NOT NULL,
+      `map_embed` text,
+      `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+    $conn->query($create_table_sql);
+    
+    // Fetch contact information from database
+    $result = $conn->query("SELECT * FROM contact_info LIMIT 1");
+    $footer_contact = null;
+    if ($result && $result->num_rows > 0) {
+        $footer_contact = $result->fetch_assoc();
+    }
+    
+    // Default contact info if none exists in database
+    if (!$footer_contact) {
+        $footer_contact = [
+            'mobile1' => '+91 98765 43210',
+            'mobile2' => '+91 98765 43211',
+            'email1' => 'info@arjuncarcare.com',
+            'email2' => 'support@arjuncarcare.com',
+            'address' => 'Tamando, Bhubaneswar, Odisha 751002, India'
+        ];
+    }
+}
+?>
 <footer class="site-footer">
         <!-- footer top part -->
         <div class="footer-top">
@@ -9,11 +51,11 @@
                             <div class="logo-footer logo-white">
                                 <img src="images/logo.png" alt="Arjun Car Care">
                             </div>
-                            <p><strong>Arjun Car Care</strong> is your trusted car service center in Tamando, Bhubaneswar. We provide comprehensive car care services including repairs, maintenance, washing, and detailing to keep your vehicle in top condition.</p>
+                            <p><strong>Arjun Car Care</strong> is your trusted car service center. We provide comprehensive car care services including repairs, maintenance, washing, and detailing to keep your vehicle in top condition.</p>
                             <ul class="dlab-social-icon dez-border">
                                 <li><a class="fab fa-facebook-f" href="https://www.facebook.com/arjuncarcare" target="_blank"></a></li>
                                 <li><a class="fab fa-instagram" href="https://www.instagram.com/arjuncarcare" target="_blank"></a></li>
-                                <li><a class="fab fa-whatsapp" href="https://wa.me/919876543210" target="_blank"></a></li>
+                                <li><a class="fab fa-whatsapp" href="https://wa.me/<?php echo str_replace(['+', ' ', '-'], '', $footer_contact['mobile1']); ?>" target="_blank"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -27,20 +69,19 @@
                                 <li>
                                     <i class="fas fa-map-marker-alt"></i>
                                     <strong>address</strong>
-                                    Tamando, Bhubaneswar<br>
-                                    Odisha 751002, India
+                                    <?php echo nl2br(htmlspecialchars($footer_contact['address'])); ?>
                                 </li>
                                 <li>
                                     <i class="fas fa-phone-alt"></i>
                                     <strong>phone</strong>
-                                    +91 98765 43210<br>
-                                    +91 98765 43211
+                                    <a href="tel:<?php echo htmlspecialchars($footer_contact['mobile1']); ?>"><?php echo htmlspecialchars($footer_contact['mobile1']); ?></a><br>
+                                    <a href="tel:<?php echo htmlspecialchars($footer_contact['mobile2']); ?>"><?php echo htmlspecialchars($footer_contact['mobile2']); ?></a>
                                 </li>
                                 <li>
                                     <i class="fas fa-envelope"></i>
                                     <strong>email</strong>
-                                    info@arjuncarcare.com<br>
-                                    support@arjuncarcare.com
+                                    <a href="mailto:<?php echo htmlspecialchars($footer_contact['email1']); ?>"><?php echo htmlspecialchars($footer_contact['email1']); ?></a><br>
+                                    <a href="mailto:<?php echo htmlspecialchars($footer_contact['email2']); ?>"><?php echo htmlspecialchars($footer_contact['email2']); ?></a>
                                 </li>
                             </ul>
                         </div>
