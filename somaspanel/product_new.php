@@ -3,6 +3,8 @@
 
 <head>
   <?= require("./config/meta.php") ?>
+  <!-- Cropper.js CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
 </head>
 
 <body>
@@ -182,13 +184,13 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Title *</label>
+                    <label for="productTitle" class="form-label">Title *</label>
                     <input type="text" class="form-control" name="title" required>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">Star Rating</label>
+                    <label for="productRating" class="form-label">Star Rating</label>
                     <select class="form-select" name="star_rating">
                       <option value="0">0 Stars</option>
                       <option value="1">1 Star</option>
