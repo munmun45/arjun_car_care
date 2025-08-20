@@ -12,7 +12,7 @@
         <li class="nav-heading">Booking</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link collapsed" href="booking.php">
                 <i class="bi bi-calendar-event"></i>
                 <span>Booking Manager</span>
             </a>
@@ -22,9 +22,22 @@
         <li class="nav-heading">Customisation</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link collapsed" href="services.php">
                 <i class="bi bi-door-open"></i>
-                <span></span>
+                <span>Services Manager</span>
+            </a>
+        </li>
+    
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="product.php">
+                <i class="bi bi-door-open"></i>
+                <span>Product Manager</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="gallery.php">
+                <i class="bi bi-door-open"></i>
+                <span>Gallery</span>
             </a>
         </li>
     
