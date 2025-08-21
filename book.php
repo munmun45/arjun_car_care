@@ -173,7 +173,9 @@
                                             <option value="">Choose a service...</option>
                                             <?php if ($services_result && $services_result->num_rows > 0): ?>
                                                 <?php while ($service = $services_result->fetch_assoc()): ?>
-                                                    <option value="<?php echo $service['id']; ?>" data-name="<?php echo htmlspecialchars($service['title']); ?>">
+                                                    <option value="<?php echo $service['id']; ?>" 
+                                                            data-name="<?php echo htmlspecialchars($service['title']); ?>"
+                                                            <?php echo (isset($_GET['service_id']) && $_GET['service_id'] == $service['id']) ? 'selected' : ''; ?>>
                                                         <?php echo htmlspecialchars($service['title']); ?>
                                                     </option>
                                                 <?php endwhile; ?>
@@ -334,6 +336,11 @@
                 serviceNameInput.value = '';
             }
         }
+        
+        // Auto-select service on page load if service_id is in URL
+        document.addEventListener('DOMContentLoaded', function() {
+            updateServiceName();
+        });
     </script>
 </div>
 

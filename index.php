@@ -70,7 +70,7 @@
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
 										style="z-index: 13; white-space: normal; font-size: 60px; line-height: 60px; font-weight: 700; color: rgba(255, 255, 255, 1.00); border-width:0px;"> 
-										<span class="text-uppercase" style="font-family: 'Poppins',sans-serif;">MAKE YOUR CAR <br/> LAST LONGER</span> 
+										<span class="text-uppercase" style="font-family: 'Poppins',sans-serif;">ARJUN CAR CARE <br/> EXPERT SERVICES</span> 
 									</div>
 									
 									<!-- LAYER NR. 3 [ for paragraph] -->
@@ -94,7 +94,7 @@
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
 										style="z-index: 13; font-weight: 500; color: rgba(255, 255, 255, 0.85); border-width:0px;"> 
-											<span> There are many variations of passages of Lorem Ipsum typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the when an unknown printer took a galley of type and scrambled </span> 
+										<span> Professional automotive care and maintenance services with over a decade of experience. We provide comprehensive car care solutions including repairs, maintenance, detailing, and diagnostics using state-of-the-art equipment and genuine parts. </span> 
 									</div>
 									
 									<!-- LAYER NR. 4 [ for readmore botton ] -->
@@ -167,7 +167,8 @@
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
 
-										style="z-index: 13; white-space: normal; font-size: 60px; line-height: 60px; font-weight: 700; color: rgba(255, 255, 255, 1.00); border-width:0px;"> <span class="text-uppercase" style="font-family: 'Poppins',sans-serif;">FIND YOUR <br/> NEXT MATCH</span> 
+										style="z-index: 13; white-space: normal; font-size: 60px; line-height: 60px; font-weight: 700; color: rgba(255, 255, 255, 1.00); border-width:0px;"> 
+										<span class="text-uppercase" style="font-family: 'Poppins',sans-serif;">QUALITY CAR <br/> MAINTENANCE</span> 
 									</div>
 
                                     <!-- LAYER NR. 3 [ for paragraph] -->
@@ -191,7 +192,7 @@
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
 										style="z-index: 13; font-weight: 500; color: rgba(255, 255, 255, 0.85); border-width:0px;"> 
-										<span>There are many variations of passages of Lorem Ipsum typesetting industry. Lorem Ipsum has been the industry's standard dummy  text ever since the when an unknown printer took a galley of type and scrambled </span> 
+										<span>Expert automotive repair and maintenance services for all vehicle makes and models. Our certified technicians use advanced diagnostic tools and quality parts to ensure your car runs at peak performance with reliable, affordable solutions.</span> 
 									</div>
 									
                                     <!-- LAYER NR. 4 [ for readmore botton ] -->
@@ -262,7 +263,8 @@
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
 
-										style="z-index: 13; white-space: normal; font-size: 60px; line-height: 60px; font-weight: 700; color: rgba(255, 255, 255, 1.00); border-width:0px;"> <span class="text-uppercase" style="font-family: 'Poppins',sans-serif;">FIND YOUR <br/> DREAM CAR</span> 
+										style="z-index: 13; white-space: normal; font-size: 60px; line-height: 60px; font-weight: 700; color: rgba(255, 255, 255, 1.00); border-width:0px;"> 
+										<span class="text-uppercase" style="font-family: 'Poppins',sans-serif;">PROFESSIONAL <br/> AUTO DETAILING</span> 
 									</div>
 
                                     <!-- LAYER NR. 3 [ for paragraph] -->
@@ -286,7 +288,7 @@
 										data-paddingbottom="[0,0,0,0]"
 										data-paddingleft="[0,0,0,0]"
 										style="z-index: 13; font-weight: 500; color: rgba(255, 255, 255, 0.85); border-width:0px;"> 
-										<span>There are many variations of passages of Lorem Ipsum typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the  when an unknown printer took a galley of type and scrambled </span> 
+										<span>Complete automotive detailing services to restore your vehicle's appearance and protect its value. From interior deep cleaning to exterior paint protection, we use premium products and techniques to make your car look showroom-ready.</span> 
 									</div>
 									
                                     <!-- LAYER NR. 4 [ for readmore botton ] -->
@@ -352,46 +354,46 @@
 				<div class="row">
 					<div class="col-lg-7 about-contant">
 						<div class="m-b20">
-							<h2 class="text-uppercase m-t0 m-b10">Car<span class="text-primary"> Polish</span></h2>
-							<span class="text-secondry font-16">Innovation & Adoption</span>
+							<h2 class="text-uppercase m-t0 m-b10">Arjun<span class="text-primary"> Car Care</span></h2>
+							<span class="text-secondry font-16">Excellence & Trust Since 2010</span>
 							<div class="clear"></div>
 						</div>
-						<p class="m-b30">There are many variations of passages of Lorem Ipsum typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing..</p>
+						<p class="m-b30">At Arjun Car Care, we have been providing exceptional automotive services for over a decade. Our commitment to quality, reliability, and customer satisfaction has made us a trusted name in the automotive industry. We specialize in comprehensive car maintenance, repairs, detailing, and diagnostic services using state-of-the-art equipment and genuine parts.</p>
 						<div class="row">
 							<div class="col-md-4 col-lg-4 col-sm-4 m-b15">
 								<div class="icon-bx-wraper bx-style-1 p-tb15 p-lr10 center">
 									<div class="icon-bx-sm radius bg-primary m-b5"> <a href="#" class="icon-cell"><i class="ti-user"></i></a> </div>
 									<div class="icon-content">
-										<h2 class="text-primary m-t20 m-b10"><span class="counter">1800</span>+</h2>
-										<p>Engineers & Workers</p>
+										<h2 class="text-primary m-t20 m-b10"><span class="counter">50</span>+</h2>
+										<p>Expert Technicians</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-4 col-lg-4 col-sm-4 m-b15">
 								<div class="icon-bx-wraper bx-style-1 p-tb15 p-lr10 center">
-									<div class="icon-bx-sm radius bg-primary m-b5"> <a href="#" class="icon-cell"><i class="ti-home"></i></a> </div>
+									<div class="icon-bx-sm radius bg-primary m-b5"> <a href="#" class="icon-cell"><i class="ti-car"></i></a> </div>
 									<div class="icon-content">
-										<h2 class="text-primary m-t20 m-b10"><span class="counter">620</span>+</h2>
-										<p>Factory In Worldwide</p>
+										<h2 class="text-primary m-t20 m-b10"><span class="counter">5000</span>+</h2>
+										<p>Cars Serviced</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-4 col-lg-4 col-sm-4 m-b15">
 								<div class="icon-bx-wraper bx-style-1 p-tb15 p-lr10 center">
-									<div class="icon-bx-sm radius bg-primary m-b5"> <a href="#" class="icon-cell"><i class="ti-harddrives"></i></a> </div>
+									<div class="icon-bx-sm radius bg-primary m-b5"> <a href="#" class="icon-cell"><i class="ti-thumb-up"></i></a> </div>
 									<div class="icon-content">
-										<h2 class="text-primary m-t20 m-b10"><span class="counter">1527</span>+</h2>
-										<p>Projects Completed</p>
+										<h2 class="text-primary m-t20 m-b10"><span class="counter">98</span>%</h2>
+										<p>Customer Satisfaction</p>
 									</div>
 								</div>
 							</div>
 						</div>
-						<p class="m-b15">There are many variations of passages of Lorem Ipsum typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the.</p>
-						<p class="m-b15">There are many variations of passages of Lorem Ipsum typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the.</p>
-						<a href="#" class="site-button">Read More</a>
+						<p class="m-b15">Our team of certified automotive professionals brings years of experience and expertise to every service. We use only premium quality parts and follow industry best practices to ensure your vehicle receives the care it deserves.</p>
+						<p class="m-b15">From routine maintenance to complex repairs, we handle all makes and models with precision and care. Our modern facility is equipped with the latest diagnostic tools and technology to provide accurate, efficient service every time.</p>
+						<a href="about.php" class="site-button">Learn More About Us</a>
 					</div>
 					<div class="col-lg-5 about-img">
-						<img src="images/img2.jpg" alt="">
+						<img src="images/img2.jpg" alt="Arjun Car Care - Professional Automotive Services">
 					</div>
                 </div>
             </div>
@@ -451,45 +453,7 @@
                 }
                 ?>
                 
-                <!-- Enhanced Filter Buttons -->
-                <div class="text-center mb-5">
-                    <div class="filter-container d-inline-block p-3" style="
-                        background: rgba(255,255,255,0.1);
-                        border-radius: 50px;
-                        backdrop-filter: blur(10px);
-                        border: 1px solid rgba(255,255,255,0.2);
-                    ">
-                        <div class="btn-group flex-wrap" role="group">
-                            <button type="button" class="filter-btn active" data-filter="*" style="
-                                background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-                                border: none;
-                                color: white;
-                                padding: 12px 24px;
-                                margin: 5px;
-                                border-radius: 25px;
-                                font-weight: 600;
-                                box-shadow: 0 4px 15px rgba(0,123,255,0.3);
-                            ">
-                                <i class="fas fa-th mr-2"></i>All Projects
-                            </button>
-                            <?php foreach($categories as $category): ?>
-                            <button type="button" class="filter-btn" data-filter=".<?php echo strtolower($category); ?>" style="
-                                background: rgba(255,255,255,0.1);
-                                border: 1px solid rgba(255,255,255,0.3);
-                                color: white;
-                                padding: 12px 24px;
-                                margin: 5px;
-                                border-radius: 25px;
-                                font-weight: 600;
-                                backdrop-filter: blur(5px);
-                            ">
-                                <i class="fas fa-tag mr-2"></i><?php echo ucfirst($category); ?>
-                            </button>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
-                
+               
                 <!-- Enhanced Gallery Grid -->
                 <div class="row g-4" id="portfolio-grid">
                     <?php
