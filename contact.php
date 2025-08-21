@@ -5,7 +5,45 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
 	
-<?php require("./config/meta.php") ?>
+<?php 
+require("./config/meta.php");
+require_once('./email/email.php');
+
+// Handle form submission
+$message = '';
+$messageType = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+    $name = trim($_POST['dzName'] ?? '');
+    $email = trim($_POST['dzEmail'] ?? '');
+    $phone = trim($_POST['dzOther']['Phone'] ?? '');
+    $subject = trim($_POST['dzOther']['Subject'] ?? '');
+    $userMessage = trim($_POST['dzMessage'] ?? '');
+    
+    // Basic validation
+    if (empty($name) || empty($email) || empty($phone) || empty($userMessage)) {
+        $message = 'Please fill in all required fields.';
+        $messageType = 'error';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message = 'Please enter a valid email address.';
+        $messageType = 'error';
+    } else {
+        // Combine subject and message
+        $fullMessage = !empty($subject) ? "Subject: $subject\n\n$userMessage" : $userMessage;
+        
+        // Send email
+        if (sendContactEmail($name, $email, $phone, $fullMessage)) {
+            $message = 'Thank you for your message! We will get back to you soon.';
+            $messageType = 'success';
+            // Clear form data on success
+            $_POST = [];
+        } else {
+            $message = 'Sorry, there was an error sending your message. Please try again later.';
+            $messageType = 'error';
+        }
+    }
+}
+?>
 	
 </head>
 <body id="bg"><div id="loading-area"></div>
@@ -115,42 +153,51 @@
                     <div class="col-lg-6">
                         <div class="p-a30 bg-gray clearfix m-b30">
 							<h2>Send Message Us</h2>
-							<div class="dzFormMsg"></div>
-							<form method="post" class="dzForm" action="https://autocare-html.vercel.app/script/contact.php">
+							<div class="dzFormMsg">
+								<?php if (!empty($message)): ?>
+									<div class="alert alert-<?php echo $messageType === 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
+										<?php echo htmlspecialchars($message); ?>
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								<?php endif; ?>
+							</div>
+							<form method="post" class="dzForm" action="">
 							<input type="hidden" value="Contact" name="dzToDo" >
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input name="dzName" type="text" required class="form-control" placeholder="Your Name">
+                                                <input name="dzName" type="text" required class="form-control" placeholder="Your Name" value="<?php echo htmlspecialchars($_POST['dzName'] ?? ''); ?>">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <div class="input-group"> 
-											    <input name="dzEmail" type="email" class="form-control" required  placeholder="Your Email Id" >
+											    <input name="dzEmail" type="email" class="form-control" required  placeholder="Your Email Id" value="<?php echo htmlspecialchars($_POST['dzEmail'] ?? ''); ?>">
                                             </div>
                                         </div>
                                     </div>
 									<div class="col-lg-6">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input name="dzOther[Phone]" type="text" required class="form-control" placeholder="Phone">
+                                                <input name="dzOther[Phone]" type="text" required class="form-control" placeholder="Phone" value="<?php echo htmlspecialchars($_POST['dzOther']['Phone'] ?? ''); ?>">
                                             </div>
                                         </div>
                                     </div>
 									<div class="col-lg-6">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input name="dzOther[Subject]" type="text" required class="form-control" placeholder="Subject">
+                                                <input name="dzOther[Subject]" type="text" class="form-control" placeholder="Subject (Optional)" value="<?php echo htmlspecialchars($_POST['dzOther']['Subject'] ?? ''); ?>">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <textarea name="dzMessage" rows="4" class="form-control" required placeholder="Your Message..."></textarea>
+                                                <textarea name="dzMessage" rows="4" class="form-control" required placeholder="Your Message..."><?php echo htmlspecialchars($_POST['dzMessage'] ?? ''); ?></textarea>
                                             </div>
                                         </div>
                                     </div>
