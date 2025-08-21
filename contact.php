@@ -13,6 +13,11 @@ require_once('./email/email.php');
 $message = '';
 $messageType = '';
 
+// Debug: Log form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    error_log('Form submitted with data: ' . print_r($_POST, true));
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $name = trim($_POST['dzName'] ?? '');
     $email = trim($_POST['dzEmail'] ?? '');
@@ -201,6 +206,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                                             </div>
                                         </div>
                                     </div>
+									<!-- Temporarily removed reCAPTCHA for testing -->
+									<!--
 									<div class="col-lg-12">
 										<div class="form-group">
 											<div class="input-group">
@@ -209,6 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 											</div>
 										</div>
 									</div>
+									-->
                                     <div class="col-lg-12">
                                         <button name="submit" type="submit" value="Submit" class="site-button "> <span>Submit</span> </button>
                                     </div>
