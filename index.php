@@ -397,17 +397,43 @@
             </div>
         </div>
         <!-- About Company END -->
-        <!-- Our Projects  -->
-        <div class="section-full bg-img-fix content-inner overlay-black-middle" style="background-image:url(images/background/bg1.jpg);">
-            <div class="container">
-                <div class="section-head  text-center text-white">
-                    <h2 class="text-uppercase">Our Projects</h2>
-                    <div class="dlab-separator-outer ">
-                        <div class="dlab-separator bg-white style-skew"></div>
+        <!-- Our Projects -->
+        <div class="section-full content-inner position-relative" style="
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 120px 0;
+            overflow: hidden;
+        ">
+            <!-- Animated Background Elements -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+                <div style="position: absolute; top: 20%; left: 10%; width: 200px; height: 200px; background: rgba(0,123,255,0.1); border-radius: 50%; animation: float 6s ease-in-out infinite;"></div>
+                <div style="position: absolute; top: 60%; right: 15%; width: 150px; height: 150px; background: rgba(255,255,255,0.05); border-radius: 50%; animation: float 8s ease-in-out infinite reverse;"></div>
+                <div style="position: absolute; bottom: 20%; left: 20%; width: 100px; height: 100px; background: rgba(0,123,255,0.08); border-radius: 50%; animation: float 10s ease-in-out infinite;"></div>
+            </div>
+            
+            <div class="container position-relative" style="z-index: 2;">
+                <!-- Enhanced Section Header -->
+                <div class="section-head text-center mb-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <span class="badge mb-3 px-4 py-2" style="
+                                background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+                                color: white;
+                                font-size: 14px;
+                                letter-spacing: 1px;
+                                border-radius: 25px;
+                            ">PORTFOLIO SHOWCASE</span>
+                            <h2 class="display-4 font-weight-bold text-white mb-4" style="line-height: 1.2;">
+                                Our <span style="color: #007bff; position: relative;">Amazing Projects
+                                    <div style="position: absolute; bottom: -5px; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #007bff, #00d4ff); border-radius: 2px;"></div>
+                                </span>
+                            </h2>
+                            <p class="lead text-light mb-0" style="font-size: 18px; line-height: 1.6; opacity: 0.9;">
+                                Explore our completed car care projects showcasing our expertise, quality workmanship, and dedication to excellence across different service categories.
+                            </p>
+                        </div>
                     </div>
-                    <p>Explore our completed car care projects showcasing our expertise and quality workmanship across different service categories.</p>
                 </div>
-                
+
                 <?php
                 // Include database connection if not already included
                 if (!isset($conn)) {
@@ -425,87 +451,220 @@
                 }
                 ?>
                 
-                <div class="site-filters clearfix center  m-b40">
-                    <ul class="filters" data-bs-toggle="buttons">
-                        <li data-filter="" class="btn active">
-                            <input type="radio">
-                            <a href="#" class="site-button-secondry"><span>Show All</span></a>
-                        </li>
-                        <?php foreach($categories as $category): ?>
-                        <li data-filter="<?php echo strtolower($category); ?>" class="btn">
-                            <input type="radio">
-                            <a href="#" class="site-button-secondry"><span><?php echo ucfirst($category); ?></span></a>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+                <!-- Enhanced Filter Buttons -->
+                <div class="text-center mb-5">
+                    <div class="filter-container d-inline-block p-3" style="
+                        background: rgba(255,255,255,0.1);
+                        border-radius: 50px;
+                        backdrop-filter: blur(10px);
+                        border: 1px solid rgba(255,255,255,0.2);
+                    ">
+                        <div class="btn-group flex-wrap" role="group">
+                            <button type="button" class="filter-btn active" data-filter="*" style="
+                                background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+                                border: none;
+                                color: white;
+                                padding: 12px 24px;
+                                margin: 5px;
+                                border-radius: 25px;
+                                font-weight: 600;
+                                box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+                            ">
+                                <i class="fas fa-th mr-2"></i>All Projects
+                            </button>
+                            <?php foreach($categories as $category): ?>
+                            <button type="button" class="filter-btn" data-filter=".<?php echo strtolower($category); ?>" style="
+                                background: rgba(255,255,255,0.1);
+                                border: 1px solid rgba(255,255,255,0.3);
+                                color: white;
+                                padding: 12px 24px;
+                                margin: 5px;
+                                border-radius: 25px;
+                                font-weight: 600;
+                                backdrop-filter: blur(5px);
+                            ">
+                                <i class="fas fa-tag mr-2"></i><?php echo ucfirst($category); ?>
+                            </button>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
                 </div>
                 
-				<ul id="masonry" class="row dlab-gallery-listing gallery-grid-4 lightgallery gallery s m-b0">
+                <!-- Enhanced Gallery Grid -->
+                <div class="row g-4" id="portfolio-grid">
                     <?php
                     // Fetch gallery images from database
                     $gallery_sql = "SELECT * FROM gallery WHERE status = 'active' ORDER BY id DESC LIMIT 6";
                     $gallery_result = $conn->query($gallery_sql);
                     
                     if ($gallery_result->num_rows > 0) {
+                        $project_index = 0;
                         while($gallery_row = $gallery_result->fetch_assoc()) {
                             $image_path = "somaspanel/uploads/gallery/" . $gallery_row['image'];
                             $category_class = strtolower($gallery_row['category']);
+                            $project_index++;
                     ?>
-					<li class="<?php echo $category_class; ?> card-container col-lg-4 col-md-4 col-sm-6 col-6">
-						<div class="dlab-box dlab-gallery-box">
-							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> 
-                                <a href="javascript:void(0);"> 
-                                    <img src="<?php echo $image_path; ?>" alt="<?php echo htmlspecialchars($gallery_row['title']); ?>" style="height: 250px; object-fit: cover; width: 100%;"> 
-                                </a>
-								<div class="overlay-bx">
-									<div class="overlay-icon"> 
-										<a href="gallery.php"> <i class="fas fa-link icon-bx-xs"></i> </a> 
-										<span data-exthumbimage="<?php echo $image_path; ?>" data-src="<?php echo $image_path; ?>" class="far fa-image icon-bx-xs check-km" title="<?php echo htmlspecialchars($gallery_row['title']); ?>"></span>
-									</div>
-								</div>
-                                <div class="overlay-info">
-                                    <h6 class="text-white"><?php echo htmlspecialchars($gallery_row['title']); ?></h6>
-                                    <span class="badge bg-primary"><?php echo ucfirst($gallery_row['category']); ?></span>
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item <?php echo $category_class; ?>">
+                        <div class="project-card h-100" style="
+                            background: white;
+                            border-radius: 20px;
+                            overflow: hidden;
+                            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+                            position: relative;
+                        ">
+                            
+                            <!-- Project Image -->
+                            <div class="project-image position-relative" style="height: 280px; overflow: hidden;">
+                                <img src="<?php echo $image_path; ?>" alt="<?php echo htmlspecialchars($gallery_row['title']); ?>" style="
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                ">
+                                
+                                <!-- Project Number -->
+                                <div style="
+                                    position: absolute;
+                                    top: 20px;
+                                    right: 20px;
+                                    width: 50px;
+                                    height: 50px;
+                                    background: rgba(0,123,255,0.9);
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: white;
+                                    font-weight: bold;
+                                    font-size: 16px;
+                                    backdrop-filter: blur(10px);
+                                "><?php echo sprintf('%02d', $project_index); ?></div>
+                            </div>
+                            
+                            <!-- Project Info -->
+                            <div class="project-info p-4">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h5 class="project-title font-weight-bold mb-0" style="
+                                        color: #2c3e50;
+                                        font-size: 18px;
+                                        line-height: 1.3;
+                                    "><?php echo htmlspecialchars($gallery_row['title']); ?></h5>
+                                    <span class="badge" style="
+                                        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+                                        color: white;
+                                        padding: 8px 15px;
+                                        border-radius: 20px;
+                                        font-size: 12px;
+                                        font-weight: 600;
+                                    "><?php echo ucfirst($gallery_row['category']); ?></span>
                                 </div>
-							</div>
-						</div>
-					</li>
+                                
+                                <!-- Project Stats -->
+                                <div class="project-stats d-flex justify-content-between text-muted" style="font-size: 14px;">
+                                    <span><i class="fas fa-star mr-1" style="color: #ffc107;"></i>Premium Quality</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <?php
                         }
                     } else {
-                        // Fallback if no gallery images
+                        // Enhanced fallback content
                     ?>
-                    <li class="col-12 text-center">
-                        <div class="alert alert-light text-dark">
-                            <h5>Projects Gallery Coming Soon!</h5>
-                            <p>We're preparing our project showcase. Check back soon to see our amazing work!</p>
-                            <a href="gallery.php" class="btn btn-primary">Visit Gallery</a>
+                    <div class="col-12">
+                        <div class="text-center py-5" style="
+                            background: rgba(255,255,255,0.1);
+                            border-radius: 20px;
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255,255,255,0.2);
+                        ">
+                            <div class="mb-4">
+                                <i class="fas fa-camera" style="font-size: 64px; color: #007bff; opacity: 0.7;"></i>
+                            </div>
+                            <h4 class="font-weight-bold text-white mb-3">Amazing Projects Coming Soon!</h4>
+                            <p class="text-light mb-4 lead" style="opacity: 0.9;">We're preparing our project showcase to display our incredible work. Stay tuned!</p>
+                            <a href="gallery.php" class="btn btn-lg px-5" style="
+                                background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+                                border: none;
+                                color: white;
+                                border-radius: 25px;
+                                padding: 15px 40px;
+                                font-weight: 600;
+                            ">
+                                <i class="fas fa-images mr-2"></i>Visit Full Gallery
+                            </a>
                         </div>
-                    </li>
+                    </div>
                     <?php } ?>
-				</ul>
+                </div>
                 
-                <!-- View All Projects Button -->
-                <div class="text-center mt-4">
-                    <a href="gallery.php" class="site-button button-skew">
-                        <span>View All Projects</span>
-                        <i class="fas fa-angle-right"></i>
-                    </a>
+                <!-- Enhanced CTA Section -->
+                <div class="text-center mt-5 pt-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <p class="text-light mb-4" style="opacity: 0.9;">Impressed by our work? Let's create something amazing together!</p>
+                            <a href="gallery.php" class="btn btn-lg px-5 py-3" style="
+                                background: linear-gradient(135deg, #007bff 0%, #00d4ff 100%);
+                                border: none;
+                                color: white;
+                                border-radius: 30px;
+                                font-weight: 600;
+                                text-decoration: none;
+                                box-shadow: 0 8px 25px rgba(0,123,255,0.4);
+                            ">
+                                <i class="fas fa-th-large mr-2"></i>
+                                <span>Explore Complete Portfolio</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
+            <!-- CSS Animation Keyframes -->
+            <style>
+                @keyframes float {
+                    0%, 100% { transform: translateY(0px); }
+                    50% { transform: translateY(-20px); }
+                }
+                
+                .filter-btn.active {
+                    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+                    color: white !important;
+                    box-shadow: 0 4px 15px rgba(0,123,255,0.3) !important;
+                }
+                
+                .portfolio-item {
+                    transition: all 0.4s ease;
+                }
+                
+                .project-card:hover .project-overlay {
+                    opacity: 1 !important;
+                }
+            </style>
         </div>
         <!-- Our Projects END -->
         <!-- OUR SERVICES -->
-        <div class="section-full bg-white content-inner">
+        <div class="section-full content-inner" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 100px 0;">
             <div class="container">
-                <div class="section-head text-center">
-                    <h2 class="text-uppercase"> OUR SERVICES</h2>
-                    <div class="dlab-separator-outer ">
-                        <div class="dlab-separator bg-secondry style-skew"></div>
+                <!-- Enhanced Section Header -->
+                <div class="section-head text-center mb-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <span class="badge mb-3 px-4 py-2" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; font-size: 14px; letter-spacing: 1px;">PREMIUM SERVICES</span>
+                            <h2 class="display-4 font-weight-bold text-dark mb-4" style="line-height: 1.2;">
+                                Our <span style="color: #dc3545; position: relative;">Expert Services
+                                    <div style="position: absolute; bottom: -5px; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #dc3545, #c82333); border-radius: 2px;"></div>
+                                </span>
+                            </h2>
+                            <p class="lead text-muted mb-0" style="font-size: 18px; line-height: 1.6;">
+                                Discover our comprehensive range of professional car care services designed to keep your vehicle running smoothly and looking its best with cutting-edge technology and expert craftsmanship.
+                            </p>
+                        </div>
                     </div>
-                    <p>Discover our comprehensive range of professional car care services designed to keep your vehicle running smoothly and looking its best.</p>
                 </div>
-                <div class="row">
+
+                <!-- Services Grid -->
+                <div class="row g-4">
                     <?php
                     // Include database connection
                     require_once('./somaspanel/config/config.php');
@@ -514,29 +673,99 @@
                     $sql = "SELECT * FROM services WHERE status = 'active' ORDER BY id DESC LIMIT 6";
                     $result = $conn->query($sql);
                     
-                    // Icon mapping for services
+                    // Enhanced icon mapping with modern icons
                     $service_icons = [
-                        'ti-reload', 'ti-car', 'ti-thumb-up', 'ti-cup', 
-                        'ti-settings', 'ti-pie-chart', 'ti-wrench', 'ti-spray',
-                        'ti-pulse', 'ti-dashboard', 'ti-bolt', 'ti-shine'
+                        'fas fa-sync-alt', 'fas fa-car', 'fas fa-thumbs-up', 'fas fa-coffee', 
+                        'fas fa-cogs', 'fas fa-chart-pie', 'fas fa-wrench', 'fas fa-spray-can',
+                        'fas fa-heartbeat', 'fas fa-tachometer-alt', 'fas fa-bolt', 'fas fa-star'
+                    ];
+                    
+                    // Color schemes for service cards - Red theme variants
+                    $color_schemes = [
+                        ['primary' => '#dc3545', 'secondary' => '#fdeaea', 'accent' => '#c82333'],
+                        ['primary' => '#e74c3c', 'secondary' => '#fdf2f2', 'accent' => '#c0392b'],
+                        ['primary' => '#f39c12', 'secondary' => '#fef9e7', 'accent' => '#d68910'],
+                        ['primary' => '#e67e22', 'secondary' => '#fdf4e7', 'accent' => '#ca6f1e'],
+                        ['primary' => '#ad1457', 'secondary' => '#fce4ec', 'accent' => '#880e4f'],
+                        ['primary' => '#d32f2f', 'secondary' => '#ffebee', 'accent' => '#b71c1c']
                     ];
                     
                     if ($result->num_rows > 0) {
-                        $icon_index = 0;
+                        $card_index = 0;
                         while($row = $result->fetch_assoc()) {
-                            $icon = $service_icons[$icon_index % count($service_icons)];
-                            $icon_index++;
+                            $icon = $service_icons[$card_index % count($service_icons)];
+                            $colors = $color_schemes[$card_index % count($color_schemes)];
+                            $card_index++;
                     ?>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper center m-b40">
-                            <div class="icon-bx-sm bg-secondry m-b20"> 
-                                <span class="icon-cell"><i class="<?php echo $icon; ?> text-primary"></i></span> 
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-card h-100" style="
+                            background: white;
+                            border-radius: 20px;
+                            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                            transition: all 0.4s ease;
+                            border: none;
+                            overflow: hidden;
+                            position: relative;
+                        " onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.15)'" 
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.1)'">
+                            
+                            <!-- Card Header with Icon -->
+                            <div class="card-header text-center p-4" style="
+                                background: linear-gradient(135deg, <?php echo $colors['primary']; ?> 0%, <?php echo $colors['accent']; ?> 100%);
+                                border: none;
+                                position: relative;
+                            ">
+                                <div class="service-icon mb-3" style="
+                                    width: 80px;
+                                    height: 80px;
+                                    background: rgba(255,255,255,0.2);
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin: 0 auto;
+                                    backdrop-filter: blur(10px);
+                                    border: 2px solid rgba(255,255,255,0.3);
+                                ">
+                                    <i class="<?php echo $icon; ?>" style="font-size: 32px; color: white;"></i>
+                                </div>
+                                <!-- Decorative elements -->
+                                <div style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                                <div style="position: absolute; bottom: 10px; left: 10px; width: 20px; height: 20px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
                             </div>
-                            <div class="icon-content">
-                                <h5 class="dlab-tilte text-uppercase"><?php echo htmlspecialchars($row['title']); ?></h5>
-                                <p><?php echo htmlspecialchars(substr($row['description'], 0, 100)) . (strlen($row['description']) > 100 ? '...' : ''); ?></p>
-                                <div class="mt-3">
-                                    <a href="services.php" class="btn btn-sm btn-outline-primary">View Details</a>
+                            
+                            <!-- Card Body -->
+                            <div class="card-body p-4" style="flex: 1; display: flex; flex-direction: column;">
+                                <h5 class="card-title font-weight-bold mb-3" style="
+                                    color: #2c3e50;
+                                    font-size: 20px;
+                                    line-height: 1.3;
+                                "><?php echo htmlspecialchars($row['title']); ?></h5>
+                                
+                                <p class="card-text text-muted mb-4" style="
+                                    line-height: 1.6;
+                                    font-size: 15px;
+                                    flex: 1;
+                                "><?php echo htmlspecialchars(substr($row['description'], 0, 120)) . (strlen($row['description']) > 120 ? '...' : ''); ?></p>
+                                
+                                <!-- Action Button -->
+                                <div class="mt-auto">
+                                    <a href="services.php" class="btn btn-block" style="
+                                        background: linear-gradient(135deg, <?php echo $colors['primary']; ?> 0%, <?php echo $colors['accent']; ?> 100%);
+                                        border: none;
+                                        color: white;
+                                        padding: 12px 24px;
+                                        border-radius: 25px;
+                                        font-weight: 600;
+                                        text-decoration: none;
+                                        transition: all 0.3s ease;
+                                        position: relative;
+                                        overflow: hidden;
+                                    " onmouseover="this.style.transform='scale(1.05)'" 
+                                       onmouseout="this.style.transform='scale(1)'">
+                                        <span style="position: relative; z-index: 2;">Learn More</span>
+                                        <i class="fas fa-arrow-right ml-2" style="position: relative; z-index: 2;"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -544,24 +773,54 @@
                     <?php
                         }
                     } else {
-                        // Fallback content if no services found
+                        // Enhanced fallback content
                     ?>
-                    <div class="col-12 text-center">
-                        <div class="alert alert-info">
-                            <h5>Services Coming Soon!</h5>
-                            <p>We're preparing our comprehensive service offerings. Please check back soon or contact us for more information.</p>
-                            <a href="contact.php" class="btn btn-primary">Contact Us</a>
+                    <div class="col-12">
+                        <div class="text-center py-5" style="
+                            background: white;
+                            border-radius: 20px;
+                            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                        ">
+                            <div class="mb-4">
+                                <i class="fas fa-tools" style="font-size: 64px; color: #dc3545; opacity: 0.7;"></i>
+                            </div>
+                            <h4 class="font-weight-bold text-dark mb-3">Exciting Services Coming Soon!</h4>
+                            <p class="text-muted mb-4 lead">We're crafting exceptional car care services just for you. Stay tuned for something amazing!</p>
+                            <a href="contact.php" class="btn btn-primary btn-lg px-5" style="
+                                border-radius: 25px;
+                                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+                                border: none;
+                                padding: 15px 40px;
+                            ">
+                                <i class="fas fa-phone mr-2"></i>Contact Us Today
+                            </a>
                         </div>
                     </div>
                     <?php } ?>
                 </div>
                 
-                <!-- View All Services Button -->
-                <div class="text-center mt-4">
-                    <a href="services.php" class="site-button button-skew">
-                        <span>View All Services</span>
-                        <i class="fas fa-angle-right"></i>
-                    </a>
+                <!-- Enhanced CTA Section -->
+                <div class="text-center mt-5 pt-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <p class="text-muted mb-4">Ready to experience premium car care?</p>
+                            <a href="services.php" class="btn btn-lg px-5 py-3" style="
+                                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+                                border: none;
+                                color: white;
+                                border-radius: 30px;
+                                font-weight: 600;
+                                text-decoration: none;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 8px 25px rgba(220,53,69,0.3);
+                            " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 35px rgba(220,53,69,0.4)'" 
+                               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(220,53,69,0.3)'">
+                                <i class="fas fa-th-large mr-2"></i>
+                                <span>Explore All Services</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
