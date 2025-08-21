@@ -12,6 +12,13 @@
         <li class="nav-heading">Booking</li>
 
         <li class="nav-item">
+            <a class="nav-link collapsed" href="invoice.php">
+                <i class="bi bi-calendar-event"></i>
+                <span>Invoice Manager</span>
+            </a>
+        </li>
+        
+        <li class="nav-item">
             <a class="nav-link collapsed" href="booking.php">
                 <i class="bi bi-calendar-event"></i>
                 <span>Booking Manager</span>
