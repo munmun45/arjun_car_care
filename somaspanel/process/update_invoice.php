@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             throw new Exception('Invalid invoice ID.');
         }
         
-        // Check if invoice exists
-        $check_query = "SELECT id FROM invoices WHERE id = ?";
+        // Check if invoice exists and get current status
+        $check_query = "SELECT id, status FROM invoices WHERE id = ?";
         $check_stmt = $conn->prepare($check_query);
         $check_stmt->bind_param("i", $invoice_id);
         $check_stmt->execute();
@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result->num_rows === 0) {
             throw new Exception('Invoice not found.');
         }
+        $existing = $result->fetch_assoc();
 
         // Get form data
         $customer_name = trim($_POST['customer_name']);
@@ -27,9 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $customer_email = trim($_POST['customer_email']) ?: null;
         $customer_address = trim($_POST['customer_address']) ?: null;
         $vehicle_number = trim($_POST['vehicle_number']) ?: null;
+        $invoice_date = !empty($_POST['invoice_date']) ? $_POST['invoice_date'] : null;
         $due_date = !empty($_POST['due_date']) ? $_POST['due_date'] : null;
+        $gst_no = isset($_POST['gst_no']) && trim($_POST['gst_no']) !== '' ? trim($_POST['gst_no']) : null;
         $invoice_notes = trim($_POST['invoice_notes']) ?: null;
-        $status = trim($_POST['status']);
+        $posted_status = isset($_POST['status']) ? trim($_POST['status']) : '';
         $items = $_POST['items'] ?? [];
 
         // Validate required fields
@@ -37,8 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             throw new Exception('Please fill in all required fields.');
         }
 
-        // Validate status
+        // Determine and validate status
         $valid_statuses = ['draft', 'sent', 'paid', 'cancelled'];
+        $status = $posted_status !== '' ? $posted_status : ($existing['status'] ?? 'draft');
         if (!in_array($status, $valid_statuses)) {
             throw new Exception('Invalid status selected.');
         }
@@ -82,8 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn->begin_transaction();
 
         // Update invoice
-        $update_invoice = $conn->prepare("UPDATE invoices SET customer_name = ?, customer_phone = ?, customer_email = ?, customer_address = ?, vehicle_number = ?, due_date = ?, subtotal = ?, total_gst = ?, grand_total = ?, notes = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
-        $update_invoice->bind_param("ssssssdddssi", $customer_name, $customer_phone, $customer_email, $customer_address, $vehicle_number, $due_date, $subtotal, $total_gst, $grand_total, $invoice_notes, $status, $invoice_id);
+        $update_invoice = $conn->prepare("UPDATE invoices SET customer_name = ?, customer_phone = ?, customer_email = ?, customer_address = ?, vehicle_number = ?, invoice_date = ?, due_date = ?, gst_no = ?, subtotal = ?, total_gst = ?, grand_total = ?, notes = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
+        $update_invoice->bind_param("ssssssssdddssi", $customer_name, $customer_phone, $customer_email, $customer_address, $vehicle_number, $invoice_date, $due_date, $gst_no, $subtotal, $total_gst, $grand_total, $invoice_notes, $status, $invoice_id);
         
         if (!$update_invoice->execute()) {
             throw new Exception('Failed to update invoice.');
@@ -114,10 +118,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
 
     } catch (Exception $e) {
-        // Rollback transaction
-        if ($conn->inTransaction()) {
-            $conn->rollback();
-        }
+        // Rollback transaction (mysqli)
+        $conn->rollback();
         
         // Error response
         $error_message = $e->getMessage();

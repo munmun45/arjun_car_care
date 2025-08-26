@@ -316,6 +316,9 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
                 <?php if ($invoice['vehicle_number']): ?>
                     Vehicle: <?php echo htmlspecialchars($invoice['vehicle_number']); ?><br>
                 <?php endif; ?>
+                <?php if (!empty($invoice['gst_no'])): ?>
+                    GST No: <?php echo htmlspecialchars($invoice['gst_no']); ?><br>
+                <?php endif; ?>
                 <?php if ($invoice['customer_address']): ?>
                     <?php echo nl2br(htmlspecialchars($invoice['customer_address'])); ?>
                 <?php endif; ?>
@@ -326,7 +329,7 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         <div class="invoice-dates">
             <div class="date-item">
                 <strong>Invoice Date</strong>
-                <?php echo date('d M Y', strtotime($invoice['created_at'])); ?>
+                <?php echo date('d M Y', strtotime($invoice['invoice_date'] ?: $invoice['created_at'])); ?>
             </div>
             <div class="date-item">
                 <strong>Due Date</strong>
@@ -334,7 +337,8 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
                 if ($invoice['due_date']) {
                     echo date('d M Y', strtotime($invoice['due_date']));
                 } else {
-                    echo date('d M Y', strtotime($invoice['created_at'] . ' +30 days'));
+                    $baseDate = $invoice['invoice_date'] ?: $invoice['created_at'];
+                    echo date('d M Y', strtotime($baseDate . ' +30 days'));
                 }
                 ?>
             </div>
@@ -342,7 +346,8 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
                 <strong>Payment Terms</strong>
                 <?php 
                 if ($invoice['due_date']) {
-                    $days = ceil((strtotime($invoice['due_date']) - strtotime($invoice['created_at'])) / (60 * 60 * 24));
+                    $baseDate = $invoice['invoice_date'] ?: $invoice['created_at'];
+                    $days = ceil((strtotime($invoice['due_date']) - strtotime($baseDate)) / (60 * 60 * 24));
                     echo "Net {$days} Days";
                 } else {
                     echo "Net 30 Days";

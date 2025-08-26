@@ -143,19 +143,20 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
+                                            <label for="invoiceDate" class="form-label">Invoice Date</label>
+                                            <input type="date" class="form-control" id="invoiceDate" name="invoice_date" value="<?php echo !empty($invoice['invoice_date']) ? htmlspecialchars($invoice['invoice_date']) : ''; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
                                             <label for="dueDate" class="form-label">Due Date</label>
                                             <input type="date" class="form-control" id="dueDate" name="due_date" value="<?php echo $invoice['due_date'] ? $invoice['due_date'] : ''; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="invoiceStatus" class="form-label">Status</label>
-                                            <select class="form-select" id="invoiceStatus" name="status">
-                                                <option value="draft" <?php echo $invoice['status'] == 'draft' ? 'selected' : ''; ?>>Draft</option>
-                                                <option value="sent" <?php echo $invoice['status'] == 'sent' ? 'selected' : ''; ?>>Sent</option>
-                                                <option value="paid" <?php echo $invoice['status'] == 'paid' ? 'selected' : ''; ?>>Paid</option>
-                                                <option value="cancelled" <?php echo $invoice['status'] == 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
-                                            </select>
+                                            <label for="gstNo" class="form-label">GST No</label>
+                                            <input type="text" class="form-control" id="gstNo" name="gst_no" value="<?php echo htmlspecialchars($invoice['gst_no'] ?? ''); ?>" placeholder="e.g., 22ABCDE1234F1Z5">
                                         </div>
                                     </div>
                                     <div class="col-12">

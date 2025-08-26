@@ -220,6 +220,9 @@ try {
                                 <?php if ($invoice['vehicle_number']): ?>
                                     Vehicle: <?php echo htmlspecialchars($invoice['vehicle_number']); ?><br>
                                 <?php endif; ?>
+                                <?php if (!empty($invoice['gst_no'])): ?>
+                                    GST No: <?php echo htmlspecialchars($invoice['gst_no']); ?><br>
+                                <?php endif; ?>
                                 <?php if ($invoice['customer_address']): ?>
                                     <?php echo nl2br(htmlspecialchars($invoice['customer_address'])); ?>
                                 <?php endif; ?>
@@ -234,7 +237,7 @@ try {
                                 <div class="row">
                                     <div class="col-md-4">
                                         <strong>Invoice Date:</strong><br>
-                                        <?php echo date('d M Y', strtotime($invoice['created_at'])); ?>
+                                        <?php echo date('d M Y', strtotime($invoice['invoice_date'] ?: $invoice['created_at'])); ?>
                                     </div>
                                     <div class="col-md-4">
                                         <strong>Due Date:</strong><br>
@@ -242,7 +245,8 @@ try {
                                         if ($invoice['due_date']) {
                                             echo date('d M Y', strtotime($invoice['due_date']));
                                         } else {
-                                            echo date('d M Y', strtotime($invoice['created_at'] . ' +30 days'));
+                                            $baseDate = $invoice['invoice_date'] ?: $invoice['created_at'];
+                                            echo date('d M Y', strtotime($baseDate . ' +30 days'));
                                         }
                                         ?>
                                     </div>
@@ -250,7 +254,8 @@ try {
                                         <strong>Payment Terms:</strong><br>
                                         <?php 
                                         if ($invoice['due_date']) {
-                                            $days = ceil((strtotime($invoice['due_date']) - strtotime($invoice['created_at'])) / (60 * 60 * 24));
+                                            $baseDate = $invoice['invoice_date'] ?: $invoice['created_at'];
+                                            $days = ceil((strtotime($invoice['due_date']) - strtotime($baseDate)) / (60 * 60 * 24));
                                             echo "Net {$days} Days";
                                         } else {
                                             echo "Net 30 Days";

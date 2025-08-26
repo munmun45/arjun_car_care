@@ -213,8 +213,20 @@ try {
                 </div>
                 <div class="col-md-6">
                   <div class="form-group mb-3">
+                    <label for="invoiceDate" class="form-label">Invoice Date</label>
+                    <input type="date" class="form-control" id="invoiceDate" name="invoice_date" value="<?php echo date('Y-m-d'); ?>">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
                     <label for="dueDate" class="form-label">Due Date</label>
                     <input type="date" class="form-control" id="dueDate" name="due_date" value="<?php echo date('Y-m-d', strtotime('+30 days')); ?>">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label for="gstNo" class="form-label">GST No</label>
+                    <input type="text" class="form-control" id="gstNo" name="gst_no" placeholder="e.g., 22ABCDE1234F1Z5">
                   </div>
                 </div>
                 <div class="col-12">

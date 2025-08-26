@@ -13,7 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             `customer_email` varchar(255),
             `customer_address` text,
             `vehicle_number` varchar(50),
+            `invoice_date` date,
             `due_date` date,
+            `gst_no` varchar(30),
             `subtotal` decimal(10,2) NOT NULL DEFAULT 0.00,
             `total_gst` decimal(10,2) NOT NULL DEFAULT 0.00,
             `grand_total` decimal(10,2) NOT NULL DEFAULT 0.00,
@@ -24,6 +26,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
         $conn->query($create_invoices_table);
+
+        // Ensure missing columns exist if table was created previously
+        $dbResult = $conn->query("SELECT DATABASE() as db");
+        $dbName = $dbResult && $dbResult->num_rows ? $dbResult->fetch_assoc()['db'] : null;
+        if ($dbName) {
+            // Check and add invoice_date
+            $chk = $conn->prepare("SELECT COUNT(*) AS cnt FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME='invoices' AND COLUMN_NAME='invoice_date'");
+            $chk->bind_param("s", $dbName);
+            $chk->execute();
+            $cnt = $chk->get_result()->fetch_assoc()['cnt'] ?? 0;
+            if ((int)$cnt === 0) {
+                $conn->query("ALTER TABLE `invoices` ADD COLUMN `invoice_date` date AFTER `vehicle_number`");
+            }
+            // Check and add gst_no
+            $chk2 = $conn->prepare("SELECT COUNT(*) AS cnt FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME='invoices' AND COLUMN_NAME='gst_no'");
+            $chk2->bind_param("s", $dbName);
+            $chk2->execute();
+            $cnt2 = $chk2->get_result()->fetch_assoc()['cnt'] ?? 0;
+            if ((int)$cnt2 === 0) {
+                $conn->query("ALTER TABLE `invoices` ADD COLUMN `gst_no` varchar(30) AFTER `due_date`");
+            }
+        }
 
         // Create invoice_items table if it doesn't exist
         $create_items_table = "CREATE TABLE IF NOT EXISTS `invoice_items` (
@@ -61,7 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $customer_email = trim($_POST['customer_email']) ?: null;
         $customer_address = trim($_POST['customer_address']) ?: null;
         $vehicle_number = trim($_POST['vehicle_number']) ?: null;
+        $invoice_date = !empty($_POST['invoice_date']) ? $_POST['invoice_date'] : date('Y-m-d');
         $due_date = !empty($_POST['due_date']) ? $_POST['due_date'] : null;
+        $gst_no = isset($_POST['gst_no']) && trim($_POST['gst_no']) !== '' ? trim($_POST['gst_no']) : null;
         $invoice_notes = trim($_POST['invoice_notes']) ?: null;
         $items = $_POST['items'] ?? [];
 
@@ -108,8 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn->begin_transaction();
 
         // Insert invoice
-        $insert_invoice = $conn->prepare("INSERT INTO invoices (invoice_number, customer_name, customer_phone, customer_email, customer_address, vehicle_number, due_date, subtotal, total_gst, grand_total, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $insert_invoice->bind_param("sssssssddds", $invoice_number, $customer_name, $customer_phone, $customer_email, $customer_address, $vehicle_number, $due_date, $subtotal, $total_gst, $grand_total, $invoice_notes);
+        $insert_invoice = $conn->prepare("INSERT INTO invoices (invoice_number, customer_name, customer_phone, customer_email, customer_address, vehicle_number, invoice_date, due_date, gst_no, subtotal, total_gst, grand_total, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $insert_invoice->bind_param("sssssssssddds", $invoice_number, $customer_name, $customer_phone, $customer_email, $customer_address, $vehicle_number, $invoice_date, $due_date, $gst_no, $subtotal, $total_gst, $grand_total, $invoice_notes);
         
         if (!$insert_invoice->execute()) {
             throw new Exception('Failed to create invoice.');
@@ -143,10 +169,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
 
     } catch (Exception $e) {
-        // Rollback transaction
-        if ($conn->inTransaction()) {
-            $conn->rollback();
-        }
+        // Rollback transaction (mysqli)
+        $conn->rollback();
         
         // Error response
         $error_message = $e->getMessage();
