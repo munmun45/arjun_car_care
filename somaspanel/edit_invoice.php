@@ -162,6 +162,12 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
+                                            <label for="invoiceNumber" class="form-label">Invoice Number (leave blank to auto-generate)</label>
+                                            <input type="text" class="form-control" id="invoiceNumber" name="invoice_number" value="<?php echo htmlspecialchars($invoice['invoice_number']); ?>" placeholder="Leave blank to auto-generate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
                                             <label for="gstNo" class="form-label">GST No</label>
                                             <input type="text" class="form-control" id="gstNo" name="gst_no" value="<?php echo htmlspecialchars($invoice['gst_no'] ?? ''); ?>" placeholder="e.g., 22ABCDE1234F1Z5">
                                         </div>

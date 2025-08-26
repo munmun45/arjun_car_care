@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $due_date = !empty($_POST['due_date']) ? $_POST['due_date'] : null;
         $gst_no = isset($_POST['gst_no']) && trim($_POST['gst_no']) !== '' ? trim($_POST['gst_no']) : null;
         $invoice_notes = trim($_POST['invoice_notes']) ?: null;
+        $posted_invoice_number = isset($_POST['invoice_number']) ? trim($_POST['invoice_number']) : '';
         $posted_status = isset($_POST['status']) ? trim($_POST['status']) : '';
         $items = $_POST['items'] ?? [];
 
@@ -98,12 +99,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $grand_total = $subtotal + $total_gst;
 
+        // Resolve invoice number: posted unique or auto-generate
+        if ($posted_invoice_number !== '') {
+            $chk = $conn->prepare("SELECT id FROM invoices WHERE invoice_number = ? AND id <> ?");
+            $chk->bind_param("si", $posted_invoice_number, $invoice_id);
+            $chk->execute();
+            $res = $chk->get_result();
+            if ($res && $res->num_rows > 0) {
+                throw new Exception('The provided Invoice Number already exists. Please use a different one or leave it blank to auto-generate.');
+            }
+            $invoice_number = $posted_invoice_number;
+        } else {
+            // Auto-generate unique invoice number if blank
+            $invoice_number = 'INV-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
+            $chk = $conn->prepare("SELECT id FROM invoices WHERE invoice_number = ? AND id <> ?");
+            $chk->bind_param("si", $invoice_number, $invoice_id);
+            $chk->execute();
+            $res = $chk->get_result();
+            while ($res && $res->num_rows > 0) {
+                $invoice_number = 'INV-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
+                $chk->bind_param("si", $invoice_number, $invoice_id);
+                $chk->execute();
+                $res = $chk->get_result();
+            }
+        }
+
         // Start transaction
         $conn->begin_transaction();
 
         // Update invoice
-        $update_invoice = $conn->prepare("UPDATE invoices SET customer_name = ?, customer_phone = ?, customer_email = ?, customer_address = ?, vehicle_number = ?, invoice_date = ?, due_date = ?, gst_no = ?, subtotal = ?, total_gst = ?, grand_total = ?, notes = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
-        $update_invoice->bind_param("ssssssssdddssi", $customer_name, $customer_phone, $customer_email, $customer_address, $vehicle_number, $invoice_date, $due_date, $gst_no, $subtotal, $total_gst, $grand_total, $invoice_notes, $status, $invoice_id);
+        $update_invoice = $conn->prepare("UPDATE invoices SET invoice_number = ?, customer_name = ?, customer_phone = ?, customer_email = ?, customer_address = ?, vehicle_number = ?, invoice_date = ?, due_date = ?, gst_no = ?, subtotal = ?, total_gst = ?, grand_total = ?, notes = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
+        $update_invoice->bind_param("sssssssssdddssi", $invoice_number, $customer_name, $customer_phone, $customer_email, $customer_address, $vehicle_number, $invoice_date, $due_date, $gst_no, $subtotal, $total_gst, $grand_total, $invoice_notes, $status, $invoice_id);
         
         if (!$update_invoice->execute()) {
             throw new Exception('Failed to update invoice.');

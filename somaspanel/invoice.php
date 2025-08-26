@@ -243,6 +243,12 @@ try {
                 </div>
                 <div class="col-md-3">
                   <div class="form-group mb-2">
+                    <label for="invoiceNumber" class="form-label small mb-1">Invoice Number (optional)</label>
+                    <input type="text" class="form-control form-control-sm" id="invoiceNumber" name="invoice_number" placeholder="Leave blank to auto-generate">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group mb-2">
                     <label for="gstNo" class="form-label small mb-1">GST No</label>
                     <input type="text" class="form-control form-control-sm" id="gstNo" name="gst_no" placeholder="e.g., 22ABCDE1234F1Z5">
                   </div>

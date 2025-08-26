@@ -121,7 +121,7 @@ if ($rs) { while ($r = $rs->fetch_assoc()) { $rows[] = $r; } $rs->close(); }
                   <input type="hidden" name="id" value="<?= (int)$editRow['id'] ?>">
                 <?php endif; ?>
                 <div class="mb-3">
-                  <label class="form-label">Product Name</label>
+                  <label class="form-label">Product/Service Name</label>
                   <input type="text" class="form-control" name="name" value="<?= htmlspecialchars($editRow['name'] ?? '') ?>" required>
                 </div>
                 <div class="d-flex gap-2">

@@ -89,21 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        // Generate unique invoice number
-        $invoice_number = 'INV-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
-        
-        // Check if invoice number already exists
-        $check_invoice = $conn->prepare("SELECT id FROM invoices WHERE invoice_number = ?");
-        $check_invoice->bind_param("s", $invoice_number);
-        $check_invoice->execute();
-        
-        // If exists, generate new one
-        while ($check_invoice->get_result()->num_rows > 0) {
-            $invoice_number = 'INV-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
-            $check_invoice->bind_param("s", $invoice_number);
-            $check_invoice->execute();
-        }
-
         // Get form data
         $customer_name = trim($_POST['customer_name']);
         $customer_phone = trim($_POST['customer_phone']);
@@ -113,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $invoice_date = !empty($_POST['invoice_date']) ? $_POST['invoice_date'] : date('Y-m-d');
         $due_date = !empty($_POST['due_date']) ? $_POST['due_date'] : null;
         $gst_no = isset($_POST['gst_no']) && trim($_POST['gst_no']) !== '' ? trim($_POST['gst_no']) : null;
+        $posted_invoice_number = isset($_POST['invoice_number']) ? trim($_POST['invoice_number']) : '';
         $invoice_notes = trim($_POST['invoice_notes']) ?: null;
         $items = $_POST['items'] ?? [];
 
@@ -171,6 +157,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         $grand_total = $subtotal + $total_gst;
+
+        // Determine invoice number: use posted if provided and unique; else auto-generate unique
+        if ($posted_invoice_number !== '') {
+            $check_invoice = $conn->prepare("SELECT id FROM invoices WHERE invoice_number = ?");
+            $check_invoice->bind_param("s", $posted_invoice_number);
+            $check_invoice->execute();
+            $res = $check_invoice->get_result();
+            if ($res && $res->num_rows > 0) {
+                throw new Exception('The provided Invoice Number already exists. Please use a different one or leave it blank to auto-generate.');
+            }
+            $invoice_number = $posted_invoice_number;
+        } else {
+            // Auto-generate unique invoice number
+            $invoice_number = 'INV-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
+            $check_invoice = $conn->prepare("SELECT id FROM invoices WHERE invoice_number = ?");
+            $check_invoice->bind_param("s", $invoice_number);
+            $check_invoice->execute();
+            $res = $check_invoice->get_result();
+            while ($res && $res->num_rows > 0) {
+                $invoice_number = 'INV-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
+                $check_invoice->bind_param("s", $invoice_number);
+                $check_invoice->execute();
+                $res = $check_invoice->get_result();
+            }
+        }
 
         // Start transaction
         $conn->begin_transaction();
