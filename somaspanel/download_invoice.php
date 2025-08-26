@@ -61,8 +61,8 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         
         body {
             font-family: 'Arial', sans-serif;
-            font-size: 12px;
-            line-height: 1.4;
+            font-size: 11px; /* compact */
+            line-height: 1.35;
             color: #333;
             background: white;
         }
@@ -70,15 +70,24 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         .invoice-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 14px; /* compact */
             background: white;
         }
+        .actions-bar { /* not printed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .actions-bar .btn { cursor: pointer; padding: 6px 10px; font-size: 12px; border-radius: 4px; border: 1px solid #ddd; background: #f8f9fa; }
+        .actions-bar .btn-primary { background: #667eea; color: #fff; border-color: #667eea; }
+        .no-print { display: block; }
         
         .invoice-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px;
-            margin: -20px -20px 30px -20px;
+            padding: 18px; /* compact */
+            margin: -14px -14px 16px -14px; /* compact */
             border-radius: 0;
         }
         
@@ -89,26 +98,26 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         }
         
         .company-logo {
-            width: 60px;
-            height: 60px;
+            width: 48px; /* compact */
+            height: 48px; /* compact */
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px; /* compact */
             color: #667eea;
             font-weight: bold;
-            margin-right: 20px;
+            margin-right: 14px; /* compact */
         }
         
         .company-details h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
+            font-size: 20px; /* compact */
+            margin-bottom: 2px;
         }
         
         .company-details p {
-            font-size: 14px;
+            font-size: 12px; /* compact */
             opacity: 0.9;
         }
         
@@ -117,13 +126,13 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         }
         
         .invoice-meta h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 22px; /* compact */
+            margin-bottom: 6px;
         }
         
         .invoice-meta h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 14px; /* compact */
+            margin-bottom: 6px;
         }
         
         .status-badge {
@@ -142,20 +151,20 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         .details-section {
             display: flex;
             justify-content: space-between;
-            margin: 30px 0;
+            margin: 16px 0; /* compact */
         }
         
         .details-box {
             width: 48%;
-            padding: 20px;
+            padding: 12px; /* compact */
             background: #f8f9fa;
             border-left: 4px solid #667eea;
         }
         
         .details-box h4 {
             color: #667eea;
-            margin-bottom: 15px;
-            font-size: 14px;
+            margin-bottom: 8px; /* compact */
+            font-size: 12px; /* compact */
         }
         
         .details-box strong {
@@ -166,8 +175,8 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         .invoice-dates {
             display: flex;
             justify-content: space-between;
-            margin: 20px 0;
-            padding: 15px;
+            margin: 12px 0; /* compact */
+            padding: 10px; /* compact */
             background: #f8f9fa;
         }
         
@@ -184,19 +193,19 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         .items-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
+            margin: 16px 0; /* compact */
         }
         
         .items-table th {
             background: #667eea;
             color: white;
-            padding: 12px 8px;
+            padding: 8px 6px; /* compact */
             text-align: left;
             font-weight: bold;
         }
         
         .items-table td {
-            padding: 10px 8px;
+            padding: 8px 6px; /* compact */
             border-bottom: 1px solid #dee2e6;
         }
         
@@ -206,7 +215,7 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         .totals-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 16px; /* compact */
         }
         
         .notes-section {
@@ -219,37 +228,37 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         }
         
         .totals-box {
-            width: 35%;
+            width: 38%;
             background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 14px; /* compact */
+            border-radius: 6px; /* compact */
         }
         
         .total-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 6px; /* compact */
         }
         
         .grand-total {
             background: #667eea;
             color: white;
-            padding: 15px;
+            padding: 12px; /* compact */
             border-radius: 5px;
             text-align: center;
-            margin-top: 15px;
+            margin-top: 12px; /* compact */
         }
         
         .grand-total .amount {
-            font-size: 20px;
+            font-size: 18px; /* compact */
             font-weight: bold;
         }
         
         .invoice-footer {
             background: #343a40;
             color: white;
-            padding: 20px;
-            margin: 30px -20px -20px -20px;
+            padding: 14px; /* compact */
+            margin: 16px -14px -14px -14px; /* compact */
             text-align: center;
         }
         
@@ -260,19 +269,23 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
         }
         
         .footer-left, .footer-right {
-            font-size: 11px;
+            font-size: 10px; /* compact */
         }
         
         @media print {
+            .no-print, .actions-bar { display: none !important; }
             body { margin: 0; }
             .invoice-container { padding: 0; }
-            .invoice-header { margin: 0 0 30px 0; }
-            .invoice-footer { margin: 30px 0 0 0; }
+            .invoice-header { margin: 0 0 16px 0; }
+            .invoice-footer { margin: 12px 0 0 0; }
+            body.hide-footer .invoice-footer { display: none !important; }
         }
     </style>
 </head>
 <body>
     <div class="invoice-container">
+        <!-- Actions Bar (not printed) -->
+       
         <!-- Invoice Header -->
         <div class="invoice-header">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -361,22 +374,30 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
             <thead>
                 <tr>
                     <th width="5%">#</th>
-                    <th width="40%">Description</th>
-                    <th width="10%" class="text-center">Qty</th>
-                    <th width="15%" class="text-right">Rate</th>
-                    <th width="10%" class="text-center">GST %</th>
-                    <th width="20%" class="text-right">Amount</th>
+                    <th width="25%">Item</th>
+                    <th width="10%">HSN Code</th>
+                    <th width="10%">Category</th>
+                    <th width="10%" class="text-right">MRP</th>
+                    <th width="10%">Part No.</th>
+                    <th width="5%" class="text-center">Qty</th>
+                    <th width="10%" class="text-right">Rate</th>
+                    <th width="5%" class="text-center">GST %</th>
+                    <th width="10%" class="text-right">Amount</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($items as $index => $item): ?>
                 <tr>
                     <td><?php echo $index + 1; ?></td>
-                    <td><strong><?php echo htmlspecialchars($item['description']); ?></strong></td>
-                    <td class="text-center"><?php echo number_format($item['quantity'], 2); ?></td>
-                    <td class="text-right">₹<?php echo number_format($item['rate'], 2); ?></td>
-                    <td class="text-center"><?php echo number_format($item['gst_rate'], 0); ?>%</td>
-                    <td class="text-right">₹<?php echo number_format($item['amount'], 2); ?></td>
+                    <td><strong><?php echo htmlspecialchars($item['item_name'] ?: $item['description']); ?></strong></td>
+                    <td><?php echo htmlspecialchars($item['hsn_code'] ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($item['category'] ?? ''); ?></td>
+                    <td class="text-right"><?php echo isset($item['mrp']) && $item['mrp'] !== null ? '₹' . number_format((float)$item['mrp'], 2) : ''; ?></td>
+                    <td><?php echo htmlspecialchars($item['part_number'] ?? ''); ?></td>
+                    <td class="text-center"><?php echo number_format((float)$item['quantity'], 2); ?></td>
+                    <td class="text-right">₹<?php echo number_format((float)$item['rate'], 2); ?></td>
+                    <td class="text-center"><?php echo number_format((float)$item['gst_rate'], 0); ?>%</td>
+                    <td class="text-right">₹<?php echo number_format((float)$item['amount'], 2); ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -391,14 +412,36 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
                 <?php endif; ?>
             </div>
             <div class="totals-box">
-                <div class="total-row">
+                <?php
+                // Calculate totals by category
+                $total_product = 0.0;
+                $total_service = 0.0;
+                if (!empty($items) && is_array($items)) {
+                    foreach ($items as $it) {
+                        $cat = isset($it['category']) ? strtolower((string)$it['category']) : '';
+                        $amt = isset($it['amount']) ? (float)$it['amount'] : 0.0;
+                        if ($cat === 'product') {
+                            $total_product += $amt;
+                        } elseif ($cat === 'service') {
+                            $total_service += $amt;
+                        }
+                    }
+                }
+                ?>
+                <div class="total-row" >
                     <span><strong>Subtotal:</strong></span>
-                    <span>₹<?php echo number_format($invoice['subtotal'], 2); ?></span>
+                    <span style="display: flex;
+    flex-direction: column;
+    align-items: flex-end;">
+                        ₹<?php echo number_format($invoice['subtotal'], 2); ?>
+                        <small style="color:#6c757d; white-space: nowrap; margin-left:6px;">Prod: ₹<?php echo number_format($total_product, 2); ?> | Serv: ₹<?php echo number_format($total_service, 2); ?></small>
+                    </span>
                 </div>
                 <div class="total-row">
                     <span><strong>Total GST:</strong></span>
                     <span>₹<?php echo number_format($invoice['total_gst'], 2); ?></span>
                 </div>
+                
                 <div class="grand-total">
                     <div>TOTAL AMOUNT</div>
                     <div class="amount">₹<?php echo number_format($invoice['grand_total'], 2); ?></div>
@@ -422,10 +465,7 @@ header('Content-Disposition: inline; filename="Invoice_' . $invoice['invoice_num
     </div>
 
     <script>
-        // Auto-print when page loads for download
-        window.onload = function() {
-            window.print();
-        };
+        window.print();
     </script>
 </body>
 </html>

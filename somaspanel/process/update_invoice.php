@@ -47,27 +47,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             throw new Exception('Invalid status selected.');
         }
 
+        // Ensure invoice_items table has new columns (best-effort, ignore errors if already exist)
+        $conn->query("ALTER TABLE invoice_items ADD COLUMN IF NOT EXISTS item_name VARCHAR(255) NULL");
+        $conn->query("ALTER TABLE invoice_items ADD COLUMN IF NOT EXISTS hsn_code VARCHAR(50) NULL");
+        $conn->query("ALTER TABLE invoice_items ADD COLUMN IF NOT EXISTS category VARCHAR(20) NULL");
+        $conn->query("ALTER TABLE invoice_items ADD COLUMN IF NOT EXISTS mrp DECIMAL(10,2) NULL");
+        $conn->query("ALTER TABLE invoice_items ADD COLUMN IF NOT EXISTS part_number VARCHAR(100) NULL");
+
         // Calculate totals
         $subtotal = 0;
         $total_gst = 0;
         $valid_items = [];
 
         foreach ($items as $item) {
-            if (!empty($item['description']) && !empty($item['quantity']) && !empty($item['rate'])) {
+            $item_name = isset($item['item_name']) ? trim($item['item_name']) : '';
+            $legacy_desc = isset($item['description']) ? trim($item['description']) : '';
+            $final_desc = $item_name !== '' ? $item_name : $legacy_desc; // Backward compatibility
+
+            if (!empty($final_desc) && !empty($item['quantity']) && !empty($item['rate'])) {
                 $qty = floatval($item['quantity']);
                 $rate = floatval($item['rate']);
                 $gst_rate = floatval($item['gst_rate']);
-                
+
                 $item_subtotal = $qty * $rate;
                 $item_gst = ($item_subtotal * $gst_rate) / 100;
                 $item_total = $item_subtotal + $item_gst;
-                
+
                 $subtotal += $item_subtotal;
                 $total_gst += $item_gst;
-                
+
                 $valid_items[] = [
                     'id' => isset($item['id']) ? intval($item['id']) : null,
-                    'description' => trim($item['description']),
+                    'description' => $final_desc,
+                    'item_name' => $item_name !== '' ? $item_name : null,
+                    'hsn_code' => isset($item['hsn_code']) && $item['hsn_code'] !== '' ? trim($item['hsn_code']) : null,
+                    'category' => isset($item['category']) && $item['category'] !== '' ? trim($item['category']) : null,
+                    'mrp' => isset($item['mrp']) && $item['mrp'] !== '' ? floatval($item['mrp']) : null,
+                    'part_number' => isset($item['part_number']) && $item['part_number'] !== '' ? trim($item['part_number']) : null,
                     'quantity' => $qty,
                     'rate' => $rate,
                     'gst_rate' => $gst_rate,
@@ -100,11 +116,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             throw new Exception('Failed to update invoice items.');
         }
 
-        // Insert updated invoice items
-        $insert_item = $conn->prepare("INSERT INTO invoice_items (invoice_id, description, quantity, rate, gst_rate, amount) VALUES (?, ?, ?, ?, ?, ?)");
-        
+        // Insert updated invoice items with new fields
+        $insert_sql = "INSERT INTO invoice_items (invoice_id, description, item_name, hsn_code, category, part_number, mrp, quantity, rate, gst_rate, amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insert_item = $conn->prepare($insert_sql);
+
         foreach ($valid_items as $item) {
-            $insert_item->bind_param("isdddd", $invoice_id, $item['description'], $item['quantity'], $item['rate'], $item['gst_rate'], $item['amount']);
+            $desc = $item['description'];
+            $iname = $item['item_name'];
+            $hsn = $item['hsn_code'];
+            $cat = $item['category'];
+            $part = $item['part_number'];
+            $mrp = $item['mrp'];
+            $qty = $item['quantity'];
+            $rate = $item['rate'];
+            $gst = $item['gst_rate'];
+            $amt = $item['amount'];
+            $insert_item->bind_param("isssssddddd", $invoice_id, $desc, $iname, $hsn, $cat, $part, $mrp, $qty, $rate, $gst, $amt);
             if (!$insert_item->execute()) {
                 throw new Exception('Failed to update invoice items.');
             }

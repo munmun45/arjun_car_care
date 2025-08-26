@@ -54,6 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `invoice_id` int(11) NOT NULL,
             `description` varchar(500) NOT NULL,
+            `item_name` varchar(255) DEFAULT NULL,
+            `hsn_code` varchar(50) DEFAULT NULL,
+            `category` enum('product','service') DEFAULT 'product',
+            `mrp` decimal(10,2) DEFAULT NULL,
+            `part_number` varchar(100) DEFAULT NULL,
             `quantity` decimal(10,2) NOT NULL,
             `rate` decimal(10,2) NOT NULL,
             `gst_rate` decimal(5,2) NOT NULL DEFAULT 0.00,
@@ -63,6 +68,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             FOREIGN KEY (`invoice_id`) REFERENCES `invoices`(`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
         $conn->query($create_items_table);
+
+        // Ensure new columns exist for existing invoice_items tables
+        if ($dbName) {
+            $columnsToEnsure = [
+                'item_name' => "ALTER TABLE `invoice_items` ADD COLUMN `item_name` varchar(255) DEFAULT NULL AFTER `description`",
+                'hsn_code' => "ALTER TABLE `invoice_items` ADD COLUMN `hsn_code` varchar(50) DEFAULT NULL AFTER `item_name`",
+                'category' => "ALTER TABLE `invoice_items` ADD COLUMN `category` enum('product','service') DEFAULT 'product' AFTER `hsn_code`",
+                'mrp' => "ALTER TABLE `invoice_items` ADD COLUMN `mrp` decimal(10,2) DEFAULT NULL AFTER `category`",
+                'part_number' => "ALTER TABLE `invoice_items` ADD COLUMN `part_number` varchar(100) DEFAULT NULL AFTER `mrp`"
+            ];
+            foreach ($columnsToEnsure as $col => $alterSql) {
+                $chkCol = $conn->prepare("SELECT COUNT(*) AS cnt FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME='invoice_items' AND COLUMN_NAME=?");
+                $chkCol->bind_param("ss", $dbName, $col);
+                $chkCol->execute();
+                $cntCol = $chkCol->get_result()->fetch_assoc()['cnt'] ?? 0;
+                if ((int)$cntCol === 0) {
+                    $conn->query($alterSql);
+                }
+            }
+        }
 
         // Generate unique invoice number
         $invoice_number = 'INV-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
@@ -102,10 +127,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $valid_items = [];
 
         foreach ($items as $item) {
-            if (!empty($item['description']) && !empty($item['quantity']) && !empty($item['rate'])) {
+            // Prefer new item_name; fallback to legacy description if provided
+            $desc_from_item = isset($item['item_name']) ? trim($item['item_name']) : '';
+            $desc_legacy = isset($item['description']) ? trim($item['description']) : '';
+            $desc = $desc_from_item !== '' ? $desc_from_item : $desc_legacy;
+
+            if ($desc !== '' && !empty($item['quantity']) && !empty($item['rate'])) {
                 $qty = floatval($item['quantity']);
                 $rate = floatval($item['rate']);
                 $gst_rate = floatval($item['gst_rate']);
+
+                // Optional fields
+                $item_name = $desc_from_item !== '' ? $desc_from_item : null;
+                $hsn_code = isset($item['hsn_code']) && trim($item['hsn_code']) !== '' ? trim($item['hsn_code']) : null;
+                $category = isset($item['category']) && in_array($item['category'], ['product','service']) ? $item['category'] : 'product';
+                $mrp = isset($item['mrp']) && $item['mrp'] !== '' ? floatval($item['mrp']) : null;
+                $part_number = isset($item['part_number']) && trim($item['part_number']) !== '' ? trim($item['part_number']) : null;
                 
                 $item_subtotal = $qty * $rate;
                 $item_gst = ($item_subtotal * $gst_rate) / 100;
@@ -115,7 +152,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $total_gst += $item_gst;
                 
                 $valid_items[] = [
-                    'description' => trim($item['description']),
+                    'description' => $desc, // map to NOT NULL column
+                    'item_name' => $item_name,
+                    'hsn_code' => $hsn_code,
+                    'category' => $category,
+                    'mrp' => $mrp,
+                    'part_number' => $part_number,
                     'quantity' => $qty,
                     'rate' => $rate,
                     'gst_rate' => $gst_rate,
@@ -143,11 +185,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $invoice_id = $conn->insert_id;
 
-        // Insert invoice items
-        $insert_item = $conn->prepare("INSERT INTO invoice_items (invoice_id, description, quantity, rate, gst_rate, amount) VALUES (?, ?, ?, ?, ?, ?)");
+        // Insert invoice items (with new fields)
+        $insert_item = $conn->prepare("INSERT INTO invoice_items (invoice_id, description, item_name, hsn_code, category, mrp, part_number, quantity, rate, gst_rate, amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         foreach ($valid_items as $item) {
-            $insert_item->bind_param("isdddd", $invoice_id, $item['description'], $item['quantity'], $item['rate'], $item['gst_rate'], $item['amount']);
+            $insert_item->bind_param(
+                "issssdsdddd",
+                $invoice_id,
+                $item['description'],
+                $item['item_name'],
+                $item['hsn_code'],
+                $item['category'],
+                $item['mrp'],
+                $item['part_number'],
+                $item['quantity'],
+                $item['rate'],
+                $item['gst_rate'],
+                $item['amount']
+            );
             if (!$insert_item->execute()) {
                 throw new Exception('Failed to add invoice items.');
             }

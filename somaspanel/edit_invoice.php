@@ -184,11 +184,15 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
                                             <table class="table table-bordered" id="itemsTable">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th width="25%">Service/Product</th>
-                                                        <th width="15%">Quantity</th>
-                                                        <th width="15%">Rate</th>
-                                                        <th width="15%">GST %</th>
-                                                        <th width="15%">Amount</th>
+                                                        <th width="18%">Item *</th>
+                                                        <th width="8%">HSN Code</th>
+                                                        <th width="10%">Category</th>
+                                                        <th width="8%">MRP</th>
+                                                        <th width="10%">Part No.</th>
+                                                        <th width="8%">Quantity</th>
+                                                        <th width="10%">Rate</th>
+                                                        <th width="8%">GST %</th>
+                                                        <th width="10%">Amount</th>
                                                         <th width="10%">Action</th>
                                                     </tr>
                                                 </thead>
@@ -197,17 +201,17 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="table-info">
-                                                        <td colspan="4" class="text-end fw-bold">Subtotal:</td>
+                                                        <td colspan="8" class="text-end fw-bold">Subtotal:</td>
                                                         <td class="fw-bold" id="subtotalAmount">₹0.00</td>
                                                         <td></td>
                                                     </tr>
                                                     <tr class="table-info">
-                                                        <td colspan="4" class="text-end fw-bold">Total GST:</td>
+                                                        <td colspan="8" class="text-end fw-bold">Total GST:</td>
                                                         <td class="fw-bold" id="totalGST">₹0.00</td>
                                                         <td></td>
                                                     </tr>
                                                     <tr class="table-success">
-                                                        <td colspan="4" class="text-end fw-bold">Grand Total:</td>
+                                                        <td colspan="8" class="text-end fw-bold">Grand Total:</td>
                                                         <td class="fw-bold" id="grandTotal">₹0.00</td>
                                                         <td></td>
                                                     </tr>
@@ -263,17 +267,37 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
         const tbody = document.getElementById('itemsTableBody');
         const row = document.createElement('tr');
         row.id = `item-row-${itemCounter}`;
-        
-        const description = existingItem ? existingItem.description : '';
+
+        const itemName = existingItem ? (existingItem.item_name || existingItem.description || '') : '';
+        const hsnCode = existingItem ? (existingItem.hsn_code || '') : '';
+        const category = existingItem ? (existingItem.category || '') : '';
+        const mrp = existingItem && existingItem.mrp != null ? existingItem.mrp : '';
+        const partNumber = existingItem ? (existingItem.part_number || '') : '';
         const quantity = existingItem ? existingItem.quantity : '1';
         const rate = existingItem ? existingItem.rate : '';
         const gstRate = existingItem ? existingItem.gst_rate : '18';
         const amount = existingItem ? existingItem.amount : '0';
-        
+
         row.innerHTML = `
             <td>
-                <input type="text" class="form-control" name="items[${itemCounter}][description]" value="${description}" placeholder="Service/Product description" required>
-                ${existingItem ? `<input type="hidden" name="items[${itemCounter}][id]" value="${existingItem.id}">` : ''}
+                <input type="text" class="form-control" name="items[${itemCounter}][item_name]" value="${itemName}" placeholder="Item name" required>
+                ${existingItem ? `<input type=\"hidden\" name=\"items[${itemCounter}][id]\" value=\"${existingItem.id}\">` : ''}
+            </td>
+            <td>
+                <input type="text" class="form-control" name="items[${itemCounter}][hsn_code]" value="${hsnCode}" placeholder="HSN">
+            </td>
+            <td>
+                <select class="form-select" name="items[${itemCounter}][category]">
+                    <option value="">Select</option>
+                    <option value="Product" ${category==='Product' ? 'selected' : ''}>Product</option>
+                    <option value="Service" ${category==='Service' ? 'selected' : ''}>Service</option>
+                </select>
+            </td>
+            <td>
+                <input type="number" class="form-control" name="items[${itemCounter}][mrp]" value="${mrp}" placeholder="0.00" min="0" step="0.01">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="items[${itemCounter}][part_number]" value="${partNumber}" placeholder="Part No.">
             </td>
             <td>
                 <input type="number" class="form-control item-qty" name="items[${itemCounter}][quantity]" value="${quantity}" min="1" step="0.01" onchange="calculateRowTotal(${itemCounter})" required>
@@ -300,9 +324,9 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
                 </button>
             </td>
         `;
-        
+
         tbody.appendChild(row);
-        
+
         if (existingItem) {
             calculateRowTotal(itemCounter);
         }
@@ -378,11 +402,11 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
         // Validate that all items have required fields
         let isValid = true;
         itemRows.forEach(row => {
-            const description = row.querySelector('input[name*="[description]"]');
+            const itemName = row.querySelector('input[name*="[item_name]"]');
             const qty = row.querySelector('.item-qty');
             const rate = row.querySelector('.item-rate');
             
-            if (!description.value.trim() || !qty.value || !rate.value) {
+            if (!itemName || !itemName.value.trim() || !qty.value || !rate.value) {
                 isValid = false;
             }
         });

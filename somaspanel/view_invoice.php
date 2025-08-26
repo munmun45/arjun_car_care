@@ -273,24 +273,30 @@ try {
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
-                                    <th width="40%">Description</th>
-                                    <th width="10%" class="text-center">Qty</th>
-                                    <th width="15%" class="text-end">Rate</th>
-                                    <th width="10%" class="text-center">GST %</th>
-                                    <th width="20%" class="text-end">Amount</th>
+                                    <th width="25%">Item</th>
+                                    <th width="10%">HSN Code</th>
+                                    <th width="10%">Category</th>
+                                    <th width="10%" class="text-end">MRP</th>
+                                    <th width="10%">Part No.</th>
+                                    <th width="5%" class="text-center">Qty</th>
+                                    <th width="10%" class="text-end">Rate</th>
+                                    <th width="5%" class="text-center">GST %</th>
+                                    <th width="10%" class="text-end">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($items as $index => $item): ?>
                                 <tr>
                                     <td><?php echo $index + 1; ?></td>
-                                    <td>
-                                        <strong><?php echo htmlspecialchars($item['description']); ?></strong>
-                                    </td>
-                                    <td class="text-center"><?php echo number_format($item['quantity'], 2); ?></td>
-                                    <td class="text-end">₹<?php echo number_format($item['rate'], 2); ?></td>
-                                    <td class="text-center"><?php echo number_format($item['gst_rate'], 0); ?>%</td>
-                                    <td class="text-end">₹<?php echo number_format($item['amount'], 2); ?></td>
+                                    <td><strong><?php echo htmlspecialchars($item['item_name'] ?: $item['description']); ?></strong></td>
+                                    <td><?php echo htmlspecialchars($item['hsn_code'] ?? ''); ?></td>
+                                    <td><?php echo htmlspecialchars($item['category'] ?? ''); ?></td>
+                                    <td class="text-end"><?php echo isset($item['mrp']) && $item['mrp'] !== null ? '₹' . number_format((float)$item['mrp'], 2) : ''; ?></td>
+                                    <td><?php echo htmlspecialchars($item['part_number'] ?? ''); ?></td>
+                                    <td class="text-center"><?php echo number_format((float)$item['quantity'], 2); ?></td>
+                                    <td class="text-end">₹<?php echo number_format((float)$item['rate'], 2); ?></td>
+                                    <td class="text-center"><?php echo number_format((float)$item['gst_rate'], 0); ?>%</td>
+                                    <td class="text-end">₹<?php echo number_format((float)$item['amount'], 2); ?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -311,14 +317,34 @@ try {
                         </div>
                         <div class="col-md-6">
                             <div class="total-section m-4">
+                                <?php
+                                // Calculate totals by category
+                                $total_product = 0.0;
+                                $total_service = 0.0;
+                                if (!empty($items) && is_array($items)) {
+                                    foreach ($items as $it) {
+                                        $cat = isset($it['category']) ? strtolower((string)$it['category']) : '';
+                                        $amt = isset($it['amount']) ? (float)$it['amount'] : 0.0;
+                                        if ($cat === 'product') {
+                                            $total_product += $amt;
+                                        } elseif ($cat === 'service') {
+                                            $total_service += $amt;
+                                        }
+                                    }
+                                }
+                                ?>
                                 <div class="row mb-2">
                                     <div class="col-6"><strong>Subtotal:</strong></div>
-                                    <div class="col-6 text-end">₹<?php echo number_format($invoice['subtotal'], 2); ?></div>
+                                    <div class="col-6 text-end">
+                                        ₹<?php echo number_format($invoice['subtotal'], 2); ?>
+                                        <small class="text-muted" style="white-space: nowrap; margin-left:6px;">Prod: ₹<?php echo number_format($total_product, 2); ?> | Serv: ₹<?php echo number_format($total_service, 2); ?></small>
+                                    </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                     <div class="col-6"><strong>Total GST:</strong></div>
                                     <div class="col-6 text-end">₹<?php echo number_format($invoice['total_gst'], 2); ?></div>
                                 </div>
+                                
                                 <div class="grand-total text-center">
                                     <div>TOTAL AMOUNT</div>
                                     <div style="font-size: 1.5rem;">₹<?php echo number_format($invoice['grand_total'], 2); ?></div>

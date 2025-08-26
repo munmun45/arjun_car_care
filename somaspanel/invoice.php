@@ -170,69 +170,78 @@ try {
       </div>
     </section>
 
+    <style>
+      /* Ensure full-screen modal scrolls reliably */
+      #invoiceModal .modal-dialog { height: 100vh; }
+      #invoiceModal .modal-content { height: 100%; display: flex; flex-direction: column; min-height: 0; }
+      #invoiceModal .modal-header, #invoiceModal .modal-footer { flex: 0 0 auto; }
+      #invoiceModal form { display: flex; flex-direction: column; min-height: 0; flex: 1 1 auto; }
+      #invoiceModal .modal-body { flex: 1 1 auto; overflow-y: auto; min-height: 0; -webkit-overflow-scrolling: touch; }
+    </style>
+
     <!-- Invoice Creation Modal -->
     <div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content h-100 d-flex flex-column">
           <div class="modal-header">
             <h5 class="modal-title" id="invoiceModalLabel">
               <i class="bi bi-receipt"></i> Create New Invoice
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form id="invoiceForm" method="post" action="process/create_invoice.php">
-            <div class="modal-body">
+          <form id="invoiceForm" method="post" action="process/create_invoice.php" class="d-flex flex-column flex-grow-1">
+            <div class="modal-body flex-grow-1 overflow-auto">
               <!-- Customer Details Section -->
-              <div class="row mb-4">
+              <div class="row mb-3">
                 <div class="col-12">
-                  <h6 class="text-primary mb-3"><i class="bi bi-person"></i> Customer Details</h6>
+                  <h6 class="text-primary mb-2"><i class="bi bi-person"></i> Customer Details</h6>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-3">
-                    <label for="customerName" class="form-label">Customer Name *</label>
-                    <input type="text" class="form-control" id="customerName" name="customer_name" required>
+                <div class="col-md-3">
+                  <div class="form-group mb-2">
+                    <label for="customerName" class="form-label small mb-1">Customer Name *</label>
+                    <input type="text" class="form-control form-control-sm" id="customerName" name="customer_name" required>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-3">
-                    <label for="customerPhone" class="form-label">Phone Number *</label>
-                    <input type="tel" class="form-control" id="customerPhone" name="customer_phone" required>
+                <div class="col-md-3">
+                  <div class="form-group mb-2">
+                    <label for="customerPhone" class="form-label small mb-1">Phone Number *</label>
+                    <input type="tel" class="form-control form-control-sm" id="customerPhone" name="customer_phone" required>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-3">
-                    <label for="customerEmail" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="customerEmail" name="customer_email">
+                <div class="col-md-3">
+                  <div class="form-group mb-2">
+                    <label for="customerEmail" class="form-label small mb-1">Email</label>
+                    <input type="email" class="form-control form-control-sm" id="customerEmail" name="customer_email">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-3">
-                    <label for="vehicleNumber" class="form-label">Vehicle Number</label>
-                    <input type="text" class="form-control" id="vehicleNumber" name="vehicle_number" placeholder="e.g., KA01AB1234">
+                <div class="col-md-3">
+                  <div class="form-group mb-2">
+                    <label for="vehicleNumber" class="form-label small mb-1">Vehicle Number</label>
+                    <input type="text" class="form-control form-control-sm" id="vehicleNumber" name="vehicle_number" placeholder="e.g., KA01AB1234">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-3">
-                    <label for="invoiceDate" class="form-label">Invoice Date</label>
-                    <input type="date" class="form-control" id="invoiceDate" name="invoice_date" value="<?php echo date('Y-m-d'); ?>">
+                <div class="col-md-3">
+                  <div class="form-group mb-2">
+                    <label for="invoiceDate" class="form-label small mb-1">Invoice Date</label>
+                    <input type="date" class="form-control form-control-sm" id="invoiceDate" name="invoice_date" value="<?php echo date('Y-m-d'); ?>">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-3">
-                    <label for="dueDate" class="form-label">Due Date</label>
-                    <input type="date" class="form-control" id="dueDate" name="due_date" value="<?php echo date('Y-m-d', strtotime('+30 days')); ?>">
+                <div class="col-md-3">
+                  <div class="form-group mb-2">
+                    <label for="dueDate" class="form-label small mb-1">Due Date</label>
+                    <input type="date" class="form-control form-control-sm" id="dueDate" name="due_date" value="<?php echo date('Y-m-d', strtotime('+30 days')); ?>">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-3">
-                    <label for="gstNo" class="form-label">GST No</label>
-                    <input type="text" class="form-control" id="gstNo" name="gst_no" placeholder="e.g., 22ABCDE1234F1Z5">
+                <div class="col-md-3">
+                  <div class="form-group mb-2">
+                    <label for="gstNo" class="form-label small mb-1">GST No</label>
+                    <input type="text" class="form-control form-control-sm" id="gstNo" name="gst_no" placeholder="e.g., 22ABCDE1234F1Z5">
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-group mb-3">
-                    <label for="customerAddress" class="form-label">Address</label>
-                    <textarea class="form-control" id="customerAddress" name="customer_address" rows="2"></textarea>
+                  <div class="form-group mb-2">
+                    <label for="customerAddress" class="form-label small mb-1">Address</label>
+                    <textarea class="form-control form-control-sm" id="customerAddress" name="customer_address" rows="2"></textarea>
                   </div>
                 </div>
               </div>
@@ -254,11 +263,15 @@ try {
                     <table class="table table-bordered" id="itemsTable">
                       <thead class="table-light">
                         <tr>
-                          <th width="25%">Service/Product</th>
-                          <th width="15%">Quantity</th>
-                          <th width="15%">Rate</th>
-                          <th width="15%">GST %</th>
-                          <th width="15%">Amount</th>
+                          <th width="20%">Item</th>
+                          <th width="10%">HSN Code</th>
+                          <th width="10%">Category</th>
+                          <th width="10%">MRP</th>
+                          <th width="10%">Part Number</th>
+                          <th width="8%">Quantity</th>
+                          <th width="8%">Rate</th>
+                          <th width="7%">GST %</th>
+                          <th width="10%">Amount</th>
                           <th width="10%">Action</th>
                         </tr>
                       </thead>
@@ -267,17 +280,17 @@ try {
                       </tbody>
                       <tfoot>
                         <tr class="table-info">
-                          <td colspan="4" class="text-end fw-bold">Subtotal:</td>
+                          <td colspan="8" class="text-end fw-bold">Subtotal:</td>
                           <td class="fw-bold" id="subtotalAmount">₹0.00</td>
                           <td></td>
                         </tr>
                         <tr class="table-info">
-                          <td colspan="4" class="text-end fw-bold">Total GST:</td>
+                          <td colspan="8" class="text-end fw-bold">Total GST:</td>
                           <td class="fw-bold" id="totalGST">₹0.00</td>
                           <td></td>
                         </tr>
                         <tr class="table-success">
-                          <td colspan="4" class="text-end fw-bold">Grand Total:</td>
+                          <td colspan="8" class="text-end fw-bold">Grand Total:</td>
                           <td class="fw-bold" id="grandTotal">₹0.00</td>
                           <td></td>
                         </tr>
@@ -329,7 +342,22 @@ try {
         
         row.innerHTML = `
             <td>
-                <input type="text" class="form-control" name="items[${itemCounter}][description]" placeholder="Service/Product description" required>
+                <input type="text" class="form-control" name="items[${itemCounter}][item_name]" placeholder="Item" required>
+            </td>
+            <td>
+                <input type="text" class="form-control" name="items[${itemCounter}][hsn_code]" placeholder="HSN/SAC">
+            </td>
+            <td>
+                <select class="form-select" name="items[${itemCounter}][category]">
+                    <option value="product">Product</option>
+                    <option value="service">Service</option>
+                </select>
+            </td>
+            <td>
+                <input type="number" class="form-control" name="items[${itemCounter}][mrp]" placeholder="0.00" min="0" step="0.01">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="items[${itemCounter}][part_number]" placeholder="Part #">
             </td>
             <td>
                 <input type="number" class="form-control item-qty" name="items[${itemCounter}][quantity]" value="1" min="1" step="0.01" onchange="calculateRowTotal(${itemCounter})" required>
@@ -430,11 +458,11 @@ try {
         // Validate that all items have required fields
         let isValid = true;
         itemRows.forEach(row => {
-            const description = row.querySelector('input[name*="[description]"]');
+            const itemName = row.querySelector('input[name*="[item_name]"]');
             const qty = row.querySelector('.item-qty');
             const rate = row.querySelector('.item-rate');
             
-            if (!description.value.trim() || !qty.value || !rate.value) {
+            if (!itemName.value.trim() || !qty.value || !rate.value) {
                 isValid = false;
             }
         });
