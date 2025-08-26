@@ -36,6 +36,13 @@ try {
         $items[] = $row;
     }
     
+    // Fetch product names for item suggestions
+    $product_names = [];
+    $pnResult = $conn->query("SELECT id, name FROM product_names ORDER BY name ASC");
+    if ($pnResult && $pnResult->num_rows > 0) {
+        while ($pn = $pnResult->fetch_assoc()) { $product_names[] = $pn; }
+    }
+    
 } catch (Exception $e) {
     header("Location: invoice.php?error=1&message=" . urlencode('Error fetching invoice: ' . $e->getMessage()));
     exit();
@@ -169,6 +176,13 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
 
                                 <hr>
 
+                                <!-- Global datalist with all product names -->
+                                <datalist id="productNamesList">
+                                    <?php foreach (($product_names ?? []) as $pn): ?>
+                                        <option value="<?php echo htmlspecialchars($pn['name']); ?>"></option>
+                                    <?php endforeach; ?>
+                                </datalist>
+
                                 <!-- Invoice Items Section -->
                                 <div class="row mb-4">
                                     <div class="col-12">
@@ -280,7 +294,7 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
 
         row.innerHTML = `
             <td>
-                <input type="text" class="form-control" name="items[${itemCounter}][item_name]" value="${itemName}" placeholder="Item name" required>
+                <input type="text" class="form-control" name="items[${itemCounter}][item_name]" value="${itemName}" placeholder="Item name" list="productNamesList" required>
                 ${existingItem ? `<input type=\"hidden\" name=\"items[${itemCounter}][id]\" value=\"${existingItem.id}\">` : ''}
             </td>
             <td>

@@ -23,6 +23,8 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
 
 // Fetch invoices from database
 $invoices = [];
+// Fetch product names for item selector
+$product_names = [];
 try {
     $query = "SELECT id, invoice_number, customer_name, customer_phone, grand_total, status, created_at 
               FROM invoices 
@@ -32,6 +34,13 @@ try {
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $invoices[] = $row;
+        }
+    }
+    // Load product names
+    $pnResult = $conn->query("SELECT id, name FROM product_names ORDER BY name ASC");
+    if ($pnResult && $pnResult->num_rows > 0) {
+        while ($pn = $pnResult->fetch_assoc()) {
+            $product_names[] = $pn;
         }
     }
 } catch (Exception $e) {
@@ -248,6 +257,13 @@ try {
 
               <hr>
 
+              <!-- Global datalist with all product names -->
+              <datalist id="productNamesList">
+                <?php foreach ($product_names as $pn): ?>
+                  <option value="<?php echo htmlspecialchars($pn['name']); ?>"></option>
+                <?php endforeach; ?>
+              </datalist>
+
               <!-- Invoice Items Section -->
               <div class="row mb-4">
                 <div class="col-12">
@@ -342,7 +358,7 @@ try {
         
         row.innerHTML = `
             <td>
-                <input type="text" class="form-control" name="items[${itemCounter}][item_name]" placeholder="Item" required>
+                <input type="text" class="form-control" name="items[${itemCounter}][item_name]" placeholder="Item" list="productNamesList" required>
             </td>
             <td>
                 <input type="text" class="form-control" name="items[${itemCounter}][hsn_code]" placeholder="HSN/SAC">

@@ -29,6 +29,13 @@
         <li class="nav-heading">Customisation</li>
 
         <li class="nav-item">
+            <a class="nav-link collapsed" href="product_listing.php">
+                <i class="bi bi-calendar-event"></i>
+                <span>Product Listing</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link collapsed" href="services.php">
                 <i class="bi bi-door-open"></i>
                 <span>Services Manager</span>
